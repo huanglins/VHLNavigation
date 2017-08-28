@@ -11,9 +11,11 @@
 ![背景图片](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/背景图片.gif)
 ![隐藏导航栏](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/隐藏导航栏.gif)
 
+
 # 如何使用
-<pre>
+
 > 手动拖入 将 VHLNavigation 文件夹拽入项目中，导入头文件：#import "VHLNavigation.h"
+
 
 #### 隐藏导航栏
 
