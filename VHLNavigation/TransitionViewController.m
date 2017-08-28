@@ -10,6 +10,7 @@
 #import "FakeNavViewController.h"
 #import "HiddenNavViewController.h"
 #import "NavBGViewController.h"
+#import "AlphaNavViewController.h"
 #import "VHLNavigation.h"
 
 @interface TransitionViewController ()
@@ -22,9 +23,8 @@
     [super viewDidLoad];
     self.title = @"颜色过渡";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self vhl_setNavBarBarTintColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    //[self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     //[self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavigationBar];
-    [self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"imageNav"]];  // millcolorGrad
     //[self vhl_setNavBarBackgroundAlpha:0.f];
     [self vhl_setNavBarShadowImageHidden:YES];
     [self vhl_setNavBarBackgroundAlpha:1.0f];
@@ -61,6 +61,13 @@
     [button3 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button3];
     [button3 addTarget:self action:@selector(goHidden:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button4 = [[UIButton alloc] initWithFrame:CGRectMake(100, 220 + 64, 150, 30)];
+    [button4 setTitle:@"导航栏透明度" forState:UIControlStateNormal];
+    [button4 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button4 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button4];
+    [button4 addTarget:self action:@selector(goAlphaNav:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -70,6 +77,7 @@
 
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
+    [vc2 vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self.navigationController pushViewController:vc2 animated:YES];
 }
 
@@ -82,6 +90,12 @@
     HiddenNavViewController *vc4 = [[HiddenNavViewController alloc] init];
     [self.navigationController pushViewController:vc4 animated:YES];
 }
+
+- (void)goAlphaNav:(UIButton *)sender {
+    AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
+    [self.navigationController pushViewController:vc5 animated:YES];
+}
+
 // ----------------------------------------------------
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -100,15 +114,5 @@
 - (UIStatusBarStyle)vhl_statusBarStyle {
     return UIStatusBarStyleLightContent;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

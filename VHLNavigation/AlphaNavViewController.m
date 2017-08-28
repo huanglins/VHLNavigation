@@ -1,34 +1,34 @@
 //
-//  NavBGViewController.m
+//  AlphaNavViewController.m
 //  VHLNavigation
 //
 //  Created by vincent on 2017/8/28.
 //  Copyright © 2017年 Darnel Studio. All rights reserved.
 //
 
-#import "NavBGViewController.h"
-#import "HiddenNavViewController.h"
-#import "FakeNavViewController.h"
-#import "TransitionViewController.h"
 #import "AlphaNavViewController.h"
+#import "FakeNavViewController.h"
+#import "HiddenNavViewController.h"
+#import "NavBGViewController.h"
+#import "TransitionViewController.h"
 #import "VHLNavigation.h"
 
-@interface NavBGViewController ()
+@interface AlphaNavViewController ()
 
 @end
 
-@implementation NavBGViewController
+@implementation AlphaNavViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"导航栏背景图片";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"导航栏透明度";
+    self.view.backgroundColor = [UIColor colorWithRed:0.11 green:0.72 blue:0.20 alpha:1.00];
     
-    //[self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavigationBar];
-    [self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"navbg"]];  // millcolorGrad
+    //[self vhl_setNavBarBarTintColor:[UIColor clearColor]];
+    [self vhl_setNavBarBackgroundAlpha:0.3f];
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
-    [self vhl_setNavBarTintColor:[UIColor whiteColor]];
-    [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self vhl_setNavBarTintColor:[UIColor blackColor]];
+    [self vhl_setNavBarShadowImageHidden:YES];
     
     //
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 60 + 64, 150, 30)];
@@ -92,5 +92,6 @@
     AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
     [self.navigationController pushViewController:vc5 animated:YES];
 }
+
 
 @end

@@ -10,6 +10,7 @@
 #import "FakeNavViewController.h"
 #import "TransitionViewController.h"
 #import "NavBGViewController.h"
+#import "AlphaNavViewController.h"
 #import "VHLNavigation.h"
 
 @interface HiddenNavViewController ()
@@ -55,6 +56,13 @@
     [button3 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button3];
     [button3 addTarget:self action:@selector(goHidden:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button4 = [[UIButton alloc] initWithFrame:CGRectMake(100, 220 + 64, 150, 30)];
+    [button4 setTitle:@"导航栏透明度" forState:UIControlStateNormal];
+    [button4 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button4 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button4];
+    [button4 addTarget:self action:@selector(goAlphaNav:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -64,6 +72,7 @@
 
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
+    [vc2 vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self.navigationController pushViewController:vc2 animated:YES];
 }
 
@@ -76,6 +85,12 @@
     HiddenNavViewController *vc4 = [[HiddenNavViewController alloc] init];
     [self.navigationController pushViewController:vc4 animated:YES];
 }
+
+- (void)goAlphaNav:(UIButton *)sender {
+    AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
+    [self.navigationController pushViewController:vc5 animated:YES];
+}
+
 
 /*
 #pragma mark - Navigation

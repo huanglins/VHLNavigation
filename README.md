@@ -51,7 +51,7 @@
 [self vhl_setNavBarShadowImageHidden:YES];
 ```
 
-## 关于
+# 关于
 - **blog**: https://www.vincents.cn
 - **email**: gvincent@163.com
 - **qq**: 2801818138
