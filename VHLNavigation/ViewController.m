@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "FakeNavViewController.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.title = @"导航栏";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
+    [button setTitle:@"导航栏样式" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.view addSubview:button];
+    button.center = self.view.center;
+    [button addTarget:self action:@selector(gonext:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)gonext:(UIButton *)sender {
+    FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
+    [self.navigationController pushViewController:vc1 animated:YES];
 }
 
 

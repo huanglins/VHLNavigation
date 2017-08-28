@@ -14,6 +14,13 @@
 		BF5DA6EC1F53B5BA00FECF3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF5DA6EB1F53B5BA00FECF3E /* Assets.xcassets */; };
 		BF5DA6EF1F53B5BA00FECF3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF5DA6ED1F53B5BA00FECF3E /* LaunchScreen.storyboard */; };
 		BF5DA6FA1F53B5BB00FECF3E /* VHLNavigationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA6F91F53B5BB00FECF3E /* VHLNavigationTests.m */; };
+		BF5DA7071F53B5CB00FECF3E /* VHLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7061F53B5CB00FECF3E /* VHLNavigation.m */; };
+		BF5DA70D1F53B5F500FECF3E /* BaseNavigationC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA70A1F53B5F500FECF3E /* BaseNavigationC.m */; };
+		BF5DA70E1F53B5F500FECF3E /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA70C1F53B5F500FECF3E /* BaseViewController.m */; };
+		BF5DA7131F53B6B500FECF3E /* FakeNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7101F53B6B500FECF3E /* FakeNavViewController.m */; };
+		BF5DA7141F53B6B500FECF3E /* TransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7121F53B6B500FECF3E /* TransitionViewController.m */; };
+		BF5DA7171F53B7E300FECF3E /* HiddenNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7161F53B7E300FECF3E /* HiddenNavViewController.m */; };
+		BF5DA71A1F53BB1200FECF3E /* NavBGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7191F53BB1200FECF3E /* NavBGViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +47,20 @@
 		BF5DA6F51F53B5BB00FECF3E /* VHLNavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VHLNavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5DA6F91F53B5BB00FECF3E /* VHLNavigationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHLNavigationTests.m; sourceTree = "<group>"; };
 		BF5DA6FB1F53B5BB00FECF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF5DA7051F53B5CB00FECF3E /* VHLNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHLNavigation.h; sourceTree = "<group>"; };
+		BF5DA7061F53B5CB00FECF3E /* VHLNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHLNavigation.m; sourceTree = "<group>"; };
+		BF5DA7091F53B5F500FECF3E /* BaseNavigationC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationC.h; sourceTree = "<group>"; };
+		BF5DA70A1F53B5F500FECF3E /* BaseNavigationC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationC.m; sourceTree = "<group>"; };
+		BF5DA70B1F53B5F500FECF3E /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		BF5DA70C1F53B5F500FECF3E /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		BF5DA70F1F53B6B500FECF3E /* FakeNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeNavViewController.h; sourceTree = "<group>"; };
+		BF5DA7101F53B6B500FECF3E /* FakeNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeNavViewController.m; sourceTree = "<group>"; };
+		BF5DA7111F53B6B500FECF3E /* TransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionViewController.h; sourceTree = "<group>"; };
+		BF5DA7121F53B6B500FECF3E /* TransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionViewController.m; sourceTree = "<group>"; };
+		BF5DA7151F53B7E300FECF3E /* HiddenNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiddenNavViewController.h; sourceTree = "<group>"; };
+		BF5DA7161F53B7E300FECF3E /* HiddenNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiddenNavViewController.m; sourceTree = "<group>"; };
+		BF5DA7181F53BB1200FECF3E /* NavBGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavBGViewController.h; sourceTree = "<group>"; };
+		BF5DA7191F53BB1200FECF3E /* NavBGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavBGViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +102,20 @@
 		BF5DA6DE1F53B5BA00FECF3E /* VHLNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				BF5DA7041F53B5CB00FECF3E /* VHLNavigation */,
+				BF5DA7081F53B5F500FECF3E /* BaseVC */,
 				BF5DA6E21F53B5BA00FECF3E /* AppDelegate.h */,
 				BF5DA6E31F53B5BA00FECF3E /* AppDelegate.m */,
 				BF5DA6E51F53B5BA00FECF3E /* ViewController.h */,
 				BF5DA6E61F53B5BA00FECF3E /* ViewController.m */,
+				BF5DA70F1F53B6B500FECF3E /* FakeNavViewController.h */,
+				BF5DA7101F53B6B500FECF3E /* FakeNavViewController.m */,
+				BF5DA7151F53B7E300FECF3E /* HiddenNavViewController.h */,
+				BF5DA7161F53B7E300FECF3E /* HiddenNavViewController.m */,
+				BF5DA7181F53BB1200FECF3E /* NavBGViewController.h */,
+				BF5DA7191F53BB1200FECF3E /* NavBGViewController.m */,
+				BF5DA7111F53B6B500FECF3E /* TransitionViewController.h */,
+				BF5DA7121F53B6B500FECF3E /* TransitionViewController.m */,
 				BF5DA6E81F53B5BA00FECF3E /* Main.storyboard */,
 				BF5DA6EB1F53B5BA00FECF3E /* Assets.xcassets */,
 				BF5DA6ED1F53B5BA00FECF3E /* LaunchScreen.storyboard */,
@@ -109,6 +140,26 @@
 				BF5DA6FB1F53B5BB00FECF3E /* Info.plist */,
 			);
 			path = VHLNavigationTests;
+			sourceTree = "<group>";
+		};
+		BF5DA7041F53B5CB00FECF3E /* VHLNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				BF5DA7051F53B5CB00FECF3E /* VHLNavigation.h */,
+				BF5DA7061F53B5CB00FECF3E /* VHLNavigation.m */,
+			);
+			path = VHLNavigation;
+			sourceTree = "<group>";
+		};
+		BF5DA7081F53B5F500FECF3E /* BaseVC */ = {
+			isa = PBXGroup;
+			children = (
+				BF5DA7091F53B5F500FECF3E /* BaseNavigationC.h */,
+				BF5DA70A1F53B5F500FECF3E /* BaseNavigationC.m */,
+				BF5DA70B1F53B5F500FECF3E /* BaseViewController.h */,
+				BF5DA70C1F53B5F500FECF3E /* BaseViewController.m */,
+			);
+			path = BaseVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,8 +266,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF5DA70D1F53B5F500FECF3E /* BaseNavigationC.m in Sources */,
+				BF5DA71A1F53BB1200FECF3E /* NavBGViewController.m in Sources */,
+				BF5DA7141F53B6B500FECF3E /* TransitionViewController.m in Sources */,
+				BF5DA70E1F53B5F500FECF3E /* BaseViewController.m in Sources */,
+				BF5DA7071F53B5CB00FECF3E /* VHLNavigation.m in Sources */,
 				BF5DA6E71F53B5BA00FECF3E /* ViewController.m in Sources */,
 				BF5DA6E41F53B5BA00FECF3E /* AppDelegate.m in Sources */,
+				BF5DA7171F53B7E300FECF3E /* HiddenNavViewController.m in Sources */,
+				BF5DA7131F53B6B500FECF3E /* FakeNavViewController.m in Sources */,
 				BF5DA6E11F53B5BA00FECF3E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
