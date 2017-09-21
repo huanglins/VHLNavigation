@@ -67,6 +67,9 @@
     [self.view addSubview:button4];
     [button4 addTarget:self action:@selector(goAlphaNav:) forControlEvents:UIControlEventTouchUpInside];
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
 
 - (void)goFake:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];

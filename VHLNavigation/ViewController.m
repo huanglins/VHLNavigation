@@ -22,12 +22,28 @@
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
     [button setTitle:@"导航栏样式" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button];
     button.center = self.view.center;
     [button addTarget:self action:@selector(gonext:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
-
+/** prefersLargeTitles 大标题显示 */
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+    }
+}
 - (void)gonext:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
     [self.navigationController pushViewController:vc1 animated:YES];
