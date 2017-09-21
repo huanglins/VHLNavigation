@@ -22,14 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
-    
     // 统一定义导航栏返回按钮
     self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
-
 - (UIBarButtonItem *)backBarButtonItem {
     UIImage* backItemImage = [[UIImage imageNamed:@"vhl_nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
@@ -85,7 +83,6 @@
     backButtonItem.customView.userInteractionEnabled = YES;
     return backButtonItem;
 }
-
 - (void)navigationItemHandleBack:(UIButton *)button {
     if ([self.navigationController respondsToSelector:@selector(popViewControllerAnimated:)]) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -97,12 +94,10 @@
         }
     }
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 // -----------------------------------------------------------------------------
 // 设置导航栏返回按钮
 - (void)setNavBackButtonTitle:(NSString *)navBackButtonTitle {

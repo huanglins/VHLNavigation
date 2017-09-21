@@ -1,21 +1,19 @@
 # VHLNavigation
 
-参考学习 [WRNavigationBar](https://github.com/wangrui460/WRNavigationBar)
 
-新增了微信红包样式导航栏样式切换，通过导航栏切换的时候，隐藏原生的导航栏，并分别添加两个假的导航栏来实现。
-
-> 导航栏抖动是模拟器原因，真机不会出现这个问题。
+微信红包样式导航栏样式切换，颜色过渡切换，导航栏背景图片切换，导航栏透明度切换，有无导航栏切换
 
 ![微信样式](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/微信样式.gif)
 ![颜色过渡](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/颜色过渡.gif)
 ![背景图片](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/背景图片.gif)
 ![隐藏导航栏](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/隐藏导航栏.gif)
+![导航栏透明度](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/透明度.gif)
 
+参考学习 [WRNavigationBar](https://github.com/wangrui460/WRNavigationBar)
 
 # 如何使用
 
 > 手动拖入 将 VHLNavigation 文件夹拽入项目中，导入头文件：#import "VHLNavigation.h"
-
 
 #### 隐藏导航栏
 
@@ -51,12 +49,17 @@
 [self vhl_setNavBarShadowImageHidden:YES];
 ```
 
+## 更新
+
+- ** 2017.09.21 **
+适配 iOS11 和 iPhone X
+
+- ** 2017.09.01 **
+增加透明度切换
+
 # 关于
 - **blog**: https://www.vincents.cn
 - **email**: gvincent@163.com
 - **qq**: 2801818138
-
-# License
-VHLNavigation is available under the MIT license. See the LICENSE file for more info.
 
 

@@ -23,7 +23,7 @@
     [super viewDidLoad];
     self.title = @"微信样式";
     self.view.backgroundColor = [UIColor blackColor];
-    [self vhl_setNavBackgroundColor:[UIColor colorWithRed:0.35 green:0.42 blue:0.58 alpha:1.00]];
+    [self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavBar];
     //[self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"millcolorGrad"]];
     //[self vhl_setNavBarBackgroundAlpha:0.f];
@@ -38,6 +38,10 @@
     UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
     view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view];
+    
+//    UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(100, 20, 40, 40)];
+//    colorView.backgroundColor = [UIColor grayColor];
+//    [self.view addSubview:colorView];
     
     //
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 60 + 64, 150, 30)];

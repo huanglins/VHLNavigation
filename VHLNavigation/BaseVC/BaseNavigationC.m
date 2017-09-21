@@ -14,6 +14,9 @@
 
 @implementation BaseNavigationC
 
+- (void)dealloc {
+    self.interactivePopGestureRecognizer.delegate = nil;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -27,7 +30,6 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 }
-
 #pragma mark - 侧滑手势 - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.viewControllers.count <= 1) {
@@ -35,7 +37,6 @@
     }
     return YES;
 }
-
 // 允许同时响应多个手势
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;

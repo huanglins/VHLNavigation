@@ -22,12 +22,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"导航栏透明度";
-    self.view.backgroundColor = [UIColor colorWithRed:0.11 green:0.72 blue:0.20 alpha:1.00];
+    self.view.backgroundColor = [UIColor whiteColor];//[UIColor colorWithRed:0.11 green:0.72 blue:0.20 alpha:1.00];
     
     //[self vhl_setNavBarBarTintColor:[UIColor clearColor]];
-    [self vhl_setNavBarBackgroundAlpha:0.3f];
+    [self vhl_setNavBarBackgroundAlpha:0.5f];
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
-    [self vhl_setNavBarTintColor:[UIColor blackColor]];
+    [self vhl_setNavBarTintColor:[UIColor whiteColor]];
+    [self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
     [self vhl_setNavBarShadowImageHidden:YES];
     
     //

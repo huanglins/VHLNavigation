@@ -31,6 +31,10 @@
 // -----------------------------------------------------------------------------
 @interface UINavigationBar (VHLNavigation)
 
+/** 设置当前 NavigationBar 背景图片*/
+- (void)vhl_setBackgroundImage:(UIImage *)image;
+/** 设置当前 NavigationBar 背景颜色*/
+- (void)vhl_setBackgroundColor:(UIColor *)color;
 /** 设置当前 NavigationBar 背景透明度*/
 - (void)vhl_setBackgroundAlpha:(CGFloat)alpha;
 /** 设置导航栏所有 barButtonItem 的透明度*/
@@ -90,7 +94,20 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 
 @end
 
-
+/*
+ // 默认不支持旋转 - 支持设备自动旋转
+ - (BOOL)shouldAutorotate {
+     return NO;
+ }
+ // 支持竖屏显示
+ - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+     return UIInterfaceOrientationMaskPortrait;
+ }
+ // 横屏状态栏是否隐藏
+ - (BOOL)prefersStatusBarHidden {
+     return YES;
+ }
+ */
 /*
     associated 关联的
  */

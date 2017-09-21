@@ -26,6 +26,7 @@
     
     //[self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavigationBar];
     [self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"navbg"]];  // millcolorGrad
+    [self vhl_setNavBarShadowImageHidden:YES];
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
     [self vhl_setNavBarTintColor:[UIColor whiteColor]];
     [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -92,5 +93,18 @@
     AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
     [self.navigationController pushViewController:vc5 animated:YES];
 }
-
+// ----------------------------------------------------------------------------- 屏幕旋转
+// 支持设备自动旋转
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+// 支持竖屏显示
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
 @end
