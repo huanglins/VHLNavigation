@@ -92,6 +92,9 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 - (void)vhl_setStatusBarStyle:(UIStatusBarStyle)style;
 - (UIStatusBarStyle)vhl_statusBarStyle;
 
+/** 获取导航栏加状态栏高度*/
+- (CGFloat)navigationBarAndStatusBarHeight;
+
 @end
 
 /*

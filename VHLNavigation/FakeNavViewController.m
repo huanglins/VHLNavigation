@@ -32,16 +32,11 @@
     [self vhl_setNavBarTintColor:[UIColor blackColor]];
     [self vhl_setNavBarTitleColor:[UIColor blackColor]];
     [self vhl_setStatusBarStyle:UIStatusBarStyleDefault];
-    self.navBackButtonColor = [UIColor blackColor];
-    //[self vhl_setNavBarHidden:YES];
+    self.navBackButtonColor = [UIColor blackColor];         
     
     UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
     view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view];
-    
-//    UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(100, 20, 40, 40)];
-//    colorView.backgroundColor = [UIColor grayColor];
-//    [self.view addSubview:colorView];
     
     //
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 60 + 64, 150, 30)];

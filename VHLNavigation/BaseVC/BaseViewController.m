@@ -44,7 +44,7 @@
     UIGraphicsEndImageContext();
     backItemImage = newImage?:backItemImage;
     
-    // 绘制高亮的背景
+    // 绘制高亮的背景，0.5透明度
     UIGraphicsBeginImageContextWithOptions(backItemImage.size, NO, backItemImage.scale);
     CGContextRef navContext = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(navContext, 0, backItemImage.size.height);
@@ -72,12 +72,11 @@
     [self.navBackButton setTitle:self.navBackButtonTitle?:@"返回" forState:UIControlStateNormal];
     self.navBackButton.titleLabel.font = [UIFont systemFontOfSize:16];
     
-    self.navBackButton.titleEdgeInsets = UIEdgeInsetsMake(0, -6, 0, 0);     // 图片和字体靠近一点
+    self.navBackButton.titleEdgeInsets = UIEdgeInsetsMake(0, -6, 0, 0);     // 图片和字体靠近一点，根据实际情况调整
     self.navBackButton.contentEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
     
     [self.navBackButton addTarget:self action:@selector(navigationItemHandleBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBackButton sizeToFit];
-    //_navCloseBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:0 target:self action:@selector(doneButtonClicked:)];
     
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBackButton];
     backButtonItem.customView.userInteractionEnabled = YES;

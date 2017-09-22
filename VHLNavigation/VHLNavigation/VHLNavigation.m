@@ -751,7 +751,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 /** 设置当前导航栏 TintColor(导航栏按钮等颜色)*/
 - (void)vhl_setNavBarTintColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kVHLNavBarTintColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if ([self pushToNextVCFinished]) {
+    if (![self pushToNextVCFinished]) {
         [self.navigationController setNeedsNavigationBarUpdateForTintColor:color];
     }
 }
@@ -763,7 +763,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 /** 设置当前导航栏 titleColor(标题颜色)*/
 - (void)vhl_setNavBarTitleColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kVHLNavBarTitleColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if ([self pushToNextVCFinished]) {
+    if (![self pushToNextVCFinished]) {
         [self.navigationController setNeedsNavigationBarUpdateForTitleColor:color];
     }
 }
@@ -792,6 +792,12 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 }
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return [self vhl_statusBarStyle];
+}
+
+/** 获取导航栏加状态栏高度*/
+- (CGFloat)navigationBarAndStatusBarHeight {
+    return CGRectGetHeight(self.navigationController.navigationBar.bounds) +
+           CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
 }
 #pragma mark - 屏幕旋转相关 ------------------------------------------------------
 /** VC 重写以下方法就行*/
