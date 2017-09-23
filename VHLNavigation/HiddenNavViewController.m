@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     self.title = @"隐藏导航栏";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor orangeColor];
     
     [self vhl_setStatusBarStyle:UIStatusBarStyleDefault];
     [self vhl_setNavBarHidden:YES];

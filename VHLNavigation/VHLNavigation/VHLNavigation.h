@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 /** UIViewController 导航栏扩展 */
 @interface UIViewController (VHLNavigation)
 
-/** 设置当前导航栏侧滑过度效果*/
+/** 设置当前导航栏侧滑过渡效果*/
 - (void)vhl_setNavigationSwitchStyle:(VHLNavigationSwitchStyle)style;
 - (VHLNavigationSwitchStyle)vhl_navigationSwitchStyle;
 

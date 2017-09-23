@@ -11,6 +11,7 @@
 @interface BaseViewController : UIViewController
 
 @property (nonatomic, strong) UIButton *navBackButton;
+
 /** 导航栏返回按钮图片*/
 @property (nonatomic, strong) UIImage  *navBackButtonImage;          // 导航栏返回按钮图片
 /** 导航栏返回按钮标题*/
