@@ -11,6 +11,7 @@
 #import "TransitionViewController.h"
 #import "NavBGViewController.h"
 #import "AlphaNavViewController.h"
+#import "ScrollNavViewController.h"
 #import "VHLNavigation.h"
 
 @interface HiddenNavViewController ()
@@ -63,6 +64,13 @@
     [button4 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button4];
     [button4 addTarget:self action:@selector(goAlphaNav:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(100, 260 + 64, 150, 30)];
+    [button5 setTitle:@"导航栏滚动" forState:UIControlStateNormal];
+    [button5 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button5 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button5];
+    [button5 addTarget:self action:@selector(goScrollNav:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -90,16 +98,24 @@
     AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
     [self.navigationController pushViewController:vc5 animated:YES];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)goScrollNav:(UIButton *)sender {
+    ScrollNavViewController *vc6 = [[ScrollNavViewController alloc] init];
+    [self.navigationController pushViewController:vc6 animated:YES];
 }
-*/
+
+// ----------------------------------------------------------------------------- 屏幕旋转
+// 支持设备自动旋转
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+// 支持竖屏显示
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
 
 @end

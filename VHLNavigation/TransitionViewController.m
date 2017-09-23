@@ -11,6 +11,7 @@
 #import "HiddenNavViewController.h"
 #import "NavBGViewController.h"
 #import "AlphaNavViewController.h"
+#import "ScrollNavViewController.h"
 #import "VHLNavigation.h"
 
 @interface TransitionViewController ()
@@ -68,6 +69,13 @@
     [button4 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button4];
     [button4 addTarget:self action:@selector(goAlphaNav:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(100, 260 + 64, 150, 30)];
+    [button5 setTitle:@"导航栏滚动" forState:UIControlStateNormal];
+    [button5 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button5 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button5];
+    [button5 addTarget:self action:@selector(goScrollNav:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -95,24 +103,24 @@
     AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
     [self.navigationController pushViewController:vc5 animated:YES];
 }
-
-// ----------------------------------------------------
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)goScrollNav:(UIButton *)sender {
+    ScrollNavViewController *vc6 = [[ScrollNavViewController alloc] init];
+    [self.navigationController pushViewController:vc6 animated:YES];
 }
+
+// ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    return YES;
 }
 // 支持竖屏显示
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskAll;
 }
-- (UIStatusBarStyle)vhl_statusBarStyle {
-    return UIStatusBarStyleLightContent;
+- (BOOL)prefersStatusBarHidden {
+    return NO;
 }
 
 @end

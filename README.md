@@ -12,7 +12,9 @@
 参考学习 
 
 [透明与半透明 NavigationBar 切换的三种方案](http://www.jianshu.com/p/e3ca1b7b6cec)
+
 [HansNavController](https://github.com/CrazyGitter/HansNavController)
+
 [WRNavigationBar](https://github.com/wangrui460/WRNavigationBar)
 
 # 如何使用
@@ -56,7 +58,7 @@
 ## 更新
 
 - **2017.09.23**
-修复了一个隐藏导航栏切换到其他样式导航栏时会出现白色背景的问题。
+修复了一个隐藏导航栏切换到其他样式导航栏时会出现白色背景的问题。增加导航栏浮动。
 
 - **2017.09.21**
 适配 iOS11 和 iPhone X

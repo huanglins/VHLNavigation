@@ -11,6 +11,7 @@
 #import "FakeNavViewController.h"
 #import "TransitionViewController.h"
 #import "AlphaNavViewController.h"
+#import "ScrollNavViewController.h"
 #import "VHLNavigation.h"
 
 @interface NavBGViewController ()
@@ -66,9 +67,13 @@
     [button4 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button4];
     [button4 addTarget:self action:@selector(goAlphaNav:) forControlEvents:UIControlEventTouchUpInside];
-}
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    
+    UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(100, 260 + 64, 150, 30)];
+    [button5 setTitle:@"导航栏滚动" forState:UIControlStateNormal];
+    [button5 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button5 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button5];
+    [button5 addTarget:self action:@selector(goScrollNav:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -95,6 +100,10 @@
 - (void)goAlphaNav:(UIButton *)sender {
     AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
     [self.navigationController pushViewController:vc5 animated:YES];
+}
+- (void)goScrollNav:(UIButton *)sender {
+    ScrollNavViewController *vc6 = [[ScrollNavViewController alloc] init];
+    [self.navigationController pushViewController:vc6 animated:YES];
 }
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转

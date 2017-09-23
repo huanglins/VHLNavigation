@@ -11,6 +11,7 @@
 #import "NavBGViewController.h"
 #import "HiddenNavViewController.h"
 #import "AlphaNavViewController.h"
+#import "ScrollNavViewController.h"
 #import "VHLNavigation.h"
 
 @interface FakeNavViewController ()
@@ -22,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"微信样式";
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavBar];
     //[self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"millcolorGrad"]];
@@ -32,11 +33,7 @@
     [self vhl_setNavBarTintColor:[UIColor blackColor]];
     [self vhl_setNavBarTitleColor:[UIColor blackColor]];
     [self vhl_setStatusBarStyle:UIStatusBarStyleDefault];
-    self.navBackButtonColor = [UIColor blackColor];         
-    
-    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-    view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:view];
+    self.navBackButtonColor = [UIColor blackColor];
     
     //
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 60 + 64, 150, 30)];
@@ -73,6 +70,13 @@
     [button4 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button4];
     [button4 addTarget:self action:@selector(goAlphaNav:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(100, 260 + 64, 150, 30)];
+    [button5 setTitle:@"导航栏滚动" forState:UIControlStateNormal];
+    [button5 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button5 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button5];
+    [button5 addTarget:self action:@selector(goScrollNav:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -99,6 +103,10 @@
 - (void)goAlphaNav:(UIButton *)sender {
     AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
     [self.navigationController pushViewController:vc5 animated:YES];
+}
+- (void)goScrollNav:(UIButton *)sender {
+    ScrollNavViewController *vc6 = [[ScrollNavViewController alloc] init];
+    [self.navigationController pushViewController:vc6 animated:YES];
 }
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
