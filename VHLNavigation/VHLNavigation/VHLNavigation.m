@@ -724,8 +724,6 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 /** 设置隐藏当前导航栏*/
 - (void)vhl_setNavBarHidden:(BOOL)hidden {
     objc_setAssociatedObject(self, &kVHLNavBarHiddenKey, @(hidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    // 当前导航栏是否隐藏
-    [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
 }
 - (BOOL)vhl_navBarHidden {
     id hidden = objc_getAssociatedObject(self, &kVHLNavBarHiddenKey);
