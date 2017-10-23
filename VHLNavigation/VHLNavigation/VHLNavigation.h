@@ -12,17 +12,13 @@
 @interface UIColor (VHLNavigation)
 
 /** 全局设置导航栏背景颜色 */
-+ (void)wr_setDefaultNavBackgroundColor:(UIColor *)color;
-
++ (void)vhl_setDefaultNavBackgroundColor:(UIColor *)color;
 /** 全局设置导航栏按钮颜色 */
 + (void)vhl_setDefaultNavBarTintColor:(UIColor *)color;
-
 /** 全局设置导航栏标题颜色 */
 + (void)vhl_setDefaultNavBarTitleColor:(UIColor *)color;
-
 /** 全局设置导航栏黑色分割线是否隐藏*/
 + (void)vhl_setDefaultNavBarShadowImageHidden:(BOOL)hidden;
-
 /** 全局设置状态栏样式*/
 + (void)vhl_setDefaultStatusBarStyle:(UIStatusBarStyle)style;
 

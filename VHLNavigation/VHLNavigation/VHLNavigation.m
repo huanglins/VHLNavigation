@@ -44,7 +44,7 @@ static char kVHLDefaultStatusBarStyleKey;
 }
 // --------------------------------------------------- //
 /** 全局设置导航栏背景颜色 */
-+ (void)wr_setDefaultNavBackgroundColor:(UIColor *)color {
++ (void)vhl_setDefaultNavBackgroundColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kVHLDefaultNavBarBarTintColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 + (UIColor *)defaultNavBackgroundColor {
@@ -119,7 +119,8 @@ static char kVHLBackgroundImageViewKey;
         // add a image(nil color) to _UIBarBackground make it clear
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;  // ****
+        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                                    UIViewAutoresizingFlexibleHeight;  // ****
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -140,7 +141,8 @@ static char kVHLBackgroundImageViewKey;
         // add a image(nil color) to _UIBarBackground make it clear
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;      // ****
+        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                               UIViewAutoresizingFlexibleHeight;      // ****
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -163,7 +165,7 @@ static char kVHLBackgroundImageViewKey;
                 view.alpha = 0;
             }
         }
-        // iOS 下如果不设置 UIBarBackground 下的UIView的透明度，会显示不正常
+        // iOS 下如果不设置 UIBarBackground 下的UIView的透明度，会显示一个白色图层
         if (barBackgroundView.subviews.firstObject) {
             barBackgroundView.subviews.firstObject.alpha = alpha;
         }

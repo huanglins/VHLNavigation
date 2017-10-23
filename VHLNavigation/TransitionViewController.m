@@ -24,9 +24,7 @@
     [super viewDidLoad];
     self.title = @"颜色过渡";
     self.view.backgroundColor = [UIColor whiteColor];
-    //[self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
-    //[self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavigationBar];
-    //[self vhl_setNavBarBackgroundAlpha:0.f];
+    [self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self vhl_setNavBarShadowImageHidden:YES];
     [self vhl_setNavBarBackgroundAlpha:1.0f];
     [self vhl_setNavBarTintColor:[UIColor whiteColor]];
@@ -85,7 +83,6 @@
 
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
-    [vc2 vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self.navigationController pushViewController:vc2 animated:YES];
 }
 

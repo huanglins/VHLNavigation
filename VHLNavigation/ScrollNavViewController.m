@@ -47,6 +47,7 @@
 #pragma mark - UIScrollview Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
+    NSLog(@"%f", offsetY);
     /** 1. VC 中设置*/
     if (offsetY > 0) {
         [self vhl_setNavBarTranslationY:offsetY];
