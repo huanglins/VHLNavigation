@@ -119,8 +119,8 @@ static char kVHLBackgroundImageViewKey;
         // add a image(nil color) to _UIBarBackground make it clear
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-                                                    UIViewAutoresizingFlexibleHeight;  // ****
+        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
+                                                    UIViewAutoresizingFlexibleWidth;  // ****
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -140,9 +140,10 @@ static char kVHLBackgroundImageViewKey;
     if (!self.backgroundView) {
         // add a image(nil color) to _UIBarBackground make it clear
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-                                               UIViewAutoresizingFlexibleHeight;      // ****
+        CGRect bgViewFrame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
+        self.backgroundView = [[UIView alloc] initWithFrame:bgViewFrame];
+        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
+                                               UIViewAutoresizingFlexibleWidth;      // ****
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -556,6 +557,13 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         }
         // 更新导航栏信息
         if (![self vhl_navBarHidden]) {
+            if (!self.fakeNavigationBar) {
+                if ([self vhl_navBarBackgroundImage]) {
+                    [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundImage:[self vhl_navBarBackgroundImage]];
+                } else {
+                    [self.navigationController setNeedsNavigationBarUpdateForBarTintColor:[self vhl_navBackgroundColor]];
+                }
+            }
             [self.navigationController setNeedsNavigationBarUpdateForTintColor:[self vhl_navBarTintColor]];
             [self.navigationController setNeedsNavigationBarUpdateForTitleColor:[self vhl_navBarTitleColor]];
         }
@@ -567,7 +575,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 - (void)vhl_viewDidAppear:(BOOL)animated {
     if ([self canUpdateNavigationBar]) {
         // 当前导航栏是否隐藏
-        [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:NO];
+        [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
         [self removeFakeNavigationBar];     // 删除 fake NavigationBar
         [self updateNavigationInfo];
     }
@@ -649,8 +657,14 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
     [toVC removeFakeNavigationBar];
     
     if (!fromVC.fakeNavigationBar && ![fromVC vhl_navBarHidden]) {
-        fromVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
-                                                                                 [self vhl_navigationBarAndStatusBarHeight])];
+        CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
+                                         [self vhl_navigationBarAndStatusBarHeight]);
+        if (fromVC.edgesForExtendedLayout == UIRectEdgeNone) {
+            fakeNavFrame = CGRectMake(0, -[self vhl_navigationBarAndStatusBarHeight], CGRectGetWidth(self.view.bounds),
+                                      [self vhl_navigationBarAndStatusBarHeight]);
+        }
+        fromVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
+        //fromVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         fromVC.fakeNavigationBar.backgroundColor = [fromVC vhl_navBackgroundColor];
         fromVC.fakeNavigationBar.image = [fromVC vhl_navBarBackgroundImage];
         fromVC.fakeNavigationBar.alpha = [fromVC vhl_navBarBackgroundAlpha];
@@ -660,8 +674,14 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         [fromVC.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:0.0f];
     }
     if (!toVC.fakeNavigationBar && ![toVC vhl_navBarHidden]) {
-        toVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
-                                                                               [self vhl_navigationBarAndStatusBarHeight])];
+        CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
+                                         [self vhl_navigationBarAndStatusBarHeight]);
+        if (toVC.edgesForExtendedLayout == UIRectEdgeNone) {
+            fakeNavFrame = CGRectMake(0, -[self vhl_navigationBarAndStatusBarHeight], CGRectGetWidth(self.view.bounds),
+                                      [self vhl_navigationBarAndStatusBarHeight]);
+        }
+        toVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
+        //toVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         toVC.fakeNavigationBar.backgroundColor = [toVC vhl_navBackgroundColor];
         toVC.fakeNavigationBar.image = [toVC vhl_navBarBackgroundImage];
         toVC.fakeNavigationBar.alpha = [toVC vhl_navBarBackgroundAlpha];
@@ -689,8 +709,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 #pragma mark - private method --------------------------------------------------
 - (BOOL)canUpdateNavigationBar {
     // 如果当前有导航栏，且当前是全屏，//且没有手动设置隐藏导航栏
-    if (self.navigationController &&
-        CGRectEqualToRect(self.view.frame, [UIScreen mainScreen].bounds)) {
+    if (self.navigationController) {  //  && CGRectEqualToRect(self.view.frame, [UIScreen mainScreen].bounds)
         return YES;
     }
     return NO;

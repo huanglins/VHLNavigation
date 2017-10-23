@@ -42,8 +42,7 @@
     return YES;
 }
 // 禁止响应手势 是否和ViewController中scrollView跟着滚动
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer: (UIGestureRecognizer *)otherGestureRecognizer
-{
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer: (UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
     //return [gestureRecognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class];
 }
