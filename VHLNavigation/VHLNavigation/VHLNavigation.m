@@ -160,6 +160,13 @@ static char kVHLBackgroundImageViewKey;
     UIView *barBackgroundView = self.subviews.firstObject;
     barBackgroundView.alpha = alpha;
 
+    if (self.isTranslucent) {
+        UIView *backgroundEffectView = [[barBackgroundView subviews] objectAtIndex:1];// UIVisualEffectView
+        if (backgroundEffectView != nil) {
+            backgroundEffectView.alpha = alpha;
+        }
+    }
+    
     if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
         for (UIView *view in self.subviews) {
             if ([NSStringFromClass([view class]) containsString:@"UIbarBackGround"]) {
