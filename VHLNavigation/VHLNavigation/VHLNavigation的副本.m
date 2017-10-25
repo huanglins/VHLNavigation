@@ -119,6 +119,7 @@ static char kVHLBackgroundImageViewKey;
         // add a image(nil color) to _UIBarBackground make it clear
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.subviews.firstObject.bounds];
+        self.backgroundImageView.backgroundColor = [UIColor whiteColor];
         self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
                                                     UIViewAutoresizingFlexibleTopMargin |
                                                     UIViewAutoresizingFlexibleWidth |
@@ -679,11 +680,20 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
             fakeNavFrame = CGRectMake(0, -[self vhl_navigationBarAndStatusBarHeight], CGRectGetWidth(self.view.bounds),
                                       [self vhl_navigationBarAndStatusBarHeight]);
         }
-        fromVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
-        //fromVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        fromVC.fakeNavigationBar.backgroundColor = [fromVC vhl_navBackgroundColor];
-        fromVC.fakeNavigationBar.image = [fromVC vhl_navBarBackgroundImage];
-        fromVC.fakeNavigationBar.alpha = [fromVC vhl_navBarBackgroundAlpha];
+//        fromVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
+//        //fromVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+//        fromVC.fakeNavigationBar.backgroundColor = [fromVC vhl_navBackgroundColor];
+//        fromVC.fakeNavigationBar.image = [fromVC vhl_navBarBackgroundImage];
+//        fromVC.fakeNavigationBar.alpha = [fromVC vhl_navBarBackgroundAlpha];
+//        [fromVC.view addSubview:fromVC.fakeNavigationBar];
+//        [fromVC.view bringSubviewToFront:fromVC.fakeNavigationBar];
+        fromVC.fakeNavigationBar = [[UINavigationBar alloc] initWithFrame:fakeNavFrame];
+        fromVC.fakeNavigationBar.backgroundColor = [UIColor clearColor];
+        [fromVC.fakeNavigationBar vhl_setBackgroundAlpha:[fromVC vhl_navBarBackgroundAlpha]];
+        [fromVC.fakeNavigationBar vhl_setBackgroundColor:[fromVC vhl_navBackgroundColor]];
+        [fromVC.fakeNavigationBar vhl_setBackgroundImage:[fromVC vhl_navBarBackgroundImage]];
+        [fromVC.fakeNavigationBar vhl_setShadowImageHidden:[fromVC vhl_navBarShadowImageHidden]];
+        
         [fromVC.view addSubview:fromVC.fakeNavigationBar];
         [fromVC.view bringSubviewToFront:fromVC.fakeNavigationBar];
         //
@@ -696,11 +706,18 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
             fakeNavFrame = CGRectMake(0, -[self vhl_navigationBarAndStatusBarHeight], CGRectGetWidth(self.view.bounds),
                                       [self vhl_navigationBarAndStatusBarHeight]);
         }
-        toVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
-        //toVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        toVC.fakeNavigationBar.backgroundColor = [toVC vhl_navBackgroundColor];
-        toVC.fakeNavigationBar.image = [toVC vhl_navBarBackgroundImage];
-        toVC.fakeNavigationBar.alpha = [toVC vhl_navBarBackgroundAlpha];
+//        toVC.fakeNavigationBar = [[UINavigationBar alloc] initWithFrame:fakeNavFrame];
+//        //toVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+//        toVC.fakeNavigationBar.backgroundColor = [toVC vhl_navBackgroundColor];
+//        toVC.fakeNavigationBar.image = [toVC vhl_navBarBackgroundImage];
+//        toVC.fakeNavigationBar.alpha = [toVC vhl_navBarBackgroundAlpha];
+        toVC.fakeNavigationBar = [[UINavigationBar alloc] initWithFrame:fakeNavFrame];
+        toVC.fakeNavigationBar.backgroundColor = [UIColor clearColor];
+        [toVC.fakeNavigationBar vhl_setBackgroundAlpha:[toVC vhl_navBarBackgroundAlpha]];
+        [toVC.fakeNavigationBar vhl_setBackgroundColor:[fromVC vhl_navBackgroundColor]];
+        [toVC.fakeNavigationBar vhl_setBackgroundImage:[toVC vhl_navBarBackgroundImage]];
+        [toVC.fakeNavigationBar vhl_setShadowImageHidden:[toVC vhl_navBarShadowImageHidden]];
+        
         [toVC.view addSubview:toVC.fakeNavigationBar];
         [toVC.view bringSubviewToFront:toVC.fakeNavigationBar];
         //
@@ -715,10 +732,10 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
     }
 }
 //
-- (UIImageView *)fakeNavigationBar {
-    return (UIImageView *)objc_getAssociatedObject(self, &kVHLFakeNavigationBarKey);
+- (UINavigationBar *)fakeNavigationBar {
+    return (UINavigationBar *)objc_getAssociatedObject(self, &kVHLFakeNavigationBarKey);
 }
-- (void)setFakeNavigationBar:(UIImageView *)navigationBar {
+- (void)setFakeNavigationBar:(UINavigationBar *)navigationBar {
     objc_setAssociatedObject(self, &kVHLFakeNavigationBarKey, navigationBar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 #pragma mark - private method --------------------------------------------------

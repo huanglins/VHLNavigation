@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "VHLNavigation.h"
 #import "FakeNavViewController.h"
 
 @interface ViewController ()
@@ -19,6 +20,8 @@
     [super viewDidLoad];
     self.title = @"导航栏";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [UIColor vhl_setDefaultNavBarShadowImageHidden:YES];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
     [button setTitle:@"导航栏样式" forState:UIControlStateNormal];
