@@ -35,6 +35,8 @@
 - (void)vhl_setBackgroundAlpha:(CGFloat)alpha;
 /** 设置当前 NavigationBar 底部分割线是否隐藏*/
 - (void)vhl_setShadowImageHidden:(BOOL)hidden;
+/** 设置当前 NavigationBar _UINavigationBarBackIndicatorView (默认的返回箭头)是否隐藏*/
+- (void)vhl_setBarBackIndicatorViewHidden:(BOOL)hidden;
 /** 设置导航栏所有 barButtonItem 的透明度*/
 - (void)vhl_setBarButtonItemsAlpha:(CGFloat)alpha hasSystemBackIndicator:(BOOL)hasSystemBackIndicator;
 

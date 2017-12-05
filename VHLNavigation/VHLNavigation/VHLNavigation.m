@@ -120,9 +120,9 @@ static char kVHLBackgroundImageViewKey;
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.subviews.firstObject.bounds];
         self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
-                                                    UIViewAutoresizingFlexibleTopMargin |
-                                                    UIViewAutoresizingFlexibleWidth |
-                                                    UIViewAutoresizingFlexibleHeight;  // ****
+        UIViewAutoresizingFlexibleTopMargin |
+        UIViewAutoresizingFlexibleWidth |
+        UIViewAutoresizingFlexibleHeight;  // ****
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -144,9 +144,9 @@ static char kVHLBackgroundImageViewKey;
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundView = [[UIView alloc] initWithFrame:self.subviews.firstObject.bounds];
         self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
-                                               UIViewAutoresizingFlexibleTopMargin |
-                                               UIViewAutoresizingFlexibleWidth |
-                                               UIViewAutoresizingFlexibleHeight;  // ****
+        UIViewAutoresizingFlexibleTopMargin |
+        UIViewAutoresizingFlexibleWidth |
+        UIViewAutoresizingFlexibleHeight;  // ****
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -162,7 +162,7 @@ static char kVHLBackgroundImageViewKey;
 - (void)vhl_setBackgroundAlpha:(CGFloat)alpha {
     UIView *barBackgroundView = self.subviews.firstObject;
     barBackgroundView.alpha = alpha;
-
+    
     if (self.isTranslucent) {
         if ([barBackgroundView subviews].count > 1) {
             UIView *backgroundEffectView = [[barBackgroundView subviews] objectAtIndex:1];// UIVisualEffectView
@@ -187,6 +187,17 @@ static char kVHLBackgroundImageViewKey;
 /** 设置当前 NavigationBar 底部分割线是否隐藏*/
 - (void)vhl_setShadowImageHidden:(BOOL)hidden {
     self.shadowImage = hidden ? [UIImage new] : nil;
+}
+/** 设置当前 NavigationBar _UINavigationBarBackIndicatorView (默认的返回箭头)是否隐藏*/
+- (void)vhl_setBarBackIndicatorViewHidden:(BOOL)hidden {
+    for (UIView *view in self.subviews) {
+        Class _UINavigationBarBackIndicatorViewClass = NSClassFromString(@"_UINavigationBarBackIndicatorView");
+        if (_UINavigationBarBackIndicatorViewClass != nil) {
+            if ([view isKindOfClass:_UINavigationBarBackIndicatorViewClass]) {
+                view.hidden = hidden;
+            }
+        }
+    }
 }
 /** 设置导航栏所有 barButtonItem 的透明度*/
 - (void)vhl_setBarButtonItemsAlpha:(CGFloat)alpha hasSystemBackIndicator:(BOOL)hasSystemBackIndicator {
@@ -560,6 +571,12 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 - (void)vhl_viewWillAppear:(BOOL)animated {
     if ([self canUpdateNavigationBar]) {
         [self setPushToNextVCFinished:NO];
+        // iOS 10.3.1 下第一个VC也会出现默认导航栏返回箭头的BUG，
+        if (self.navigationController.viewControllers.count == 1) {
+            [self.navigationController.navigationBar vhl_setBarBackIndicatorViewHidden:YES];
+        } else {
+            [self.navigationController.navigationBar vhl_setBarBackIndicatorViewHidden:NO];
+        }
         // 当前导航栏是否隐藏
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
         // 恢复导航栏浮动偏移
@@ -831,7 +848,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 - (void)vhl_setNavBarTranslationY:(CGFloat)translationY {
     if (translationY <= 0) translationY = 0;
     if (translationY >= [self vhl_navgationBarHeight]) translationY = [self vhl_navgationBarHeight];
-
+    
     objc_setAssociatedObject(self, &kVHLNavBarTranslationYKey, @(translationY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self.navigationController.navigationBar vhl_setTranslationY:-translationY];
     [self.navigationController.navigationBar vhl_setBarButtonItemsAlpha:(1.0 - (translationY / [self vhl_navgationBarHeight])) hasSystemBackIndicator:YES];
@@ -861,7 +878,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 /** 获取导航栏加状态栏高度*/
 - (CGFloat)vhl_navigationBarAndStatusBarHeight {
     return CGRectGetHeight(self.navigationController.navigationBar.bounds) +
-           CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
 }
 #pragma mark - 屏幕旋转相关 ------------------------------------------------------
 /** VC 重写以下方法就行*/
@@ -880,6 +897,8 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 
 @end
 
-/** 
-    objc_setAssociatedObject 来把一个对象与另外一个对象进行关联。该函数需要四个参数：源对象，关键字，关联的对象和一个关联策略。
+/**
+ objc_setAssociatedObject 来把一个对象与另外一个对象进行关联。该函数需要四个参数：源对象，关键字，关联的对象和一个关联策略。
  */
+
+

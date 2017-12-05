@@ -24,6 +24,25 @@
     self.view.backgroundColor = [UIColor clearColor];
     // 统一定义导航栏返回按钮
     self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem];
+    if (self.navigationController.navigationBar) {
+        for (UIView *view in self.navigationController.navigationBar.subviews) {
+            Class _UIButtonBarStackViewClass = NSClassFromString(@"_UIButtonBarStackView");
+            if (_UIButtonBarStackViewClass != nil) {
+                if (![view isKindOfClass:_UIButtonBarStackViewClass]) {
+                    view.layer.masksToBounds = NO;
+                    view.clipsToBounds = NO;
+                }
+            }
+            //
+            Class _UITAMICAdaptorViewClass = NSClassFromString(@"_UITAMICAdaptorView");
+            if (_UITAMICAdaptorViewClass != nil) {
+                if (![view isKindOfClass:_UITAMICAdaptorViewClass]) {
+                    view.layer.masksToBounds = NO;
+                    view.clipsToBounds = NO;
+                }
+            }
+        }
+    }
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -74,9 +93,9 @@
     
     self.navBackButton.titleEdgeInsets = UIEdgeInsetsMake(0, -6, 0, 0);     // 图片和字体靠近一点，根据实际情况调整
     self.navBackButton.contentEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
+    [self.navBackButton sizeToFit];
     
     [self.navBackButton addTarget:self action:@selector(navigationItemHandleBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navBackButton sizeToFit];
     
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBackButton];
     backButtonItem.customView.userInteractionEnabled = YES;

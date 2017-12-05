@@ -21,7 +21,7 @@
     self.title = @"导航栏";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [UIColor vhl_setDefaultNavBarShadowImageHidden:YES];
+    //[UIColor vhl_setDefaultNavBarShadowImageHidden:YES];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
     [button setTitle:@"导航栏样式" forState:UIControlStateNormal];
@@ -35,17 +35,17 @@
 /** prefersLargeTitles 大标题显示 */
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-    }
+//    if (@available(iOS 11.0, *)) {
+//        self.navigationController.navigationBar.prefersLargeTitles = YES;
+//        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+//    }
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-    }
+//    if (@available(iOS 11.0, *)) {
+//        self.navigationController.navigationBar.prefersLargeTitles = NO;
+//         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+//    }
 }
 - (void)gonext:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
