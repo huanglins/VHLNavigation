@@ -590,7 +590,8 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         }
         // 更新导航栏信息
         if (![self vhl_navBarHidden]) {
-            if (!self.fakeNavigationBar) {
+            // ** 当两个VC都是颜色过渡的时候，这里不设置背景，不然会闪动一下 **
+            if (!self.fakeNavigationBar && ![self isTransitionStyle]) {
                 if ([self vhl_navBarBackgroundImage]) {
                     [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundImage:[self vhl_navBarBackgroundImage]];
                 } else {
@@ -680,6 +681,28 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         return YES;
     }
     return NO;
+}
+// 是否都是颜色渐变过渡
+- (BOOL)isTransitionStyle {
+    UIViewController *fromVC = [self fromVC];
+    UIViewController *toVC = [self toVC];
+    // 如果 VC 中有隐藏了导航栏的就不做切换效果
+    if ([fromVC vhl_navBarHidden] || [toVC vhl_navBarHidden]) {
+        return NO;
+    }
+    // 如果 VC 中设置了自定义导航栏图片
+    if (([fromVC vhl_navBarBackgroundImage] || [toVC vhl_navBarBackgroundImage])) {
+        return NO;
+    }
+    // 如果 VC 中设置了切换样式为两种导航栏
+    if ([fromVC vhl_navigationSwitchStyle] == 1 || [toVC vhl_navigationSwitchStyle] == 1) {
+        return NO;
+    }
+    // 如果 VC 中两个导航栏的透明度不一样，也使用假的导航栏
+    if ([fromVC vhl_navBarBackgroundAlpha] != [toVC vhl_navBarBackgroundAlpha]) {
+        return NO;
+    }
+    return YES;
 }
 // 添加一个假的 NavigationBar
 - (void)addFakeNavigationBar {
