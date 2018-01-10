@@ -54,6 +54,7 @@
     } else {
         [self vhl_setNavBarTranslationY:0.0];
     }
+    [self.navigationController.navigationBar vhl_setBarBackIndicatorViewHidden:YES];
     
     /** 2. 自己管理 NavigationBar方式设置导航栏浮动*/
 //    CGFloat navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);

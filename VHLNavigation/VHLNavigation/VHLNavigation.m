@@ -428,10 +428,12 @@ static int vhlPushDisplayCount = 0;
     if ([coor initiallyInteractive]) {
         NSString *sysVersion = [[UIDevice currentDevice] systemVersion];
         if ([sysVersion floatValue] >= 10) {
-            [coor notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                __strong typeof (self) pThis = weakSelf;
-                [pThis dealInteractionChanges:context];
-            }];
+            if (@available(iOS 10.0, *)) {
+                [coor notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                    __strong typeof (self) pThis = weakSelf;
+                    [pThis dealInteractionChanges:context];
+                }];
+            }
         } else {
             [coor notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
                 __strong typeof (self) pThis = weakSelf;
