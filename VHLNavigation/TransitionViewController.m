@@ -12,6 +12,7 @@
 #import "NavBGViewController.h"
 #import "AlphaNavViewController.h"
 #import "ScrollNavViewController.h"
+#import "NavTableViewController.h"
 #import "VHLNavigation.h"
 
 @interface TransitionViewController ()
@@ -74,6 +75,13 @@
     [button5 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button5];
     [button5 addTarget:self action:@selector(goScrollNav:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button6 = [[UIButton alloc] initWithFrame:CGRectMake(100, 300 + 64, 150, 30)];
+    [button6 setTitle:@"TableVC" forState:UIControlStateNormal];
+    [button6 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button6 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button6];
+    [button6 addTarget:self action:@selector(goTableViewController:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -83,6 +91,7 @@
 
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
+    [vc2 vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self.navigationController pushViewController:vc2 animated:YES];
 }
 
@@ -104,7 +113,10 @@
     ScrollNavViewController *vc6 = [[ScrollNavViewController alloc] init];
     [self.navigationController pushViewController:vc6 animated:YES];
 }
-
+- (void)goTableViewController:(UIButton *)sender {
+    NavTableViewController *vc7 = [[NavTableViewController alloc] init];
+    [self.navigationController pushViewController:vc7 animated:YES];
+}
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate {

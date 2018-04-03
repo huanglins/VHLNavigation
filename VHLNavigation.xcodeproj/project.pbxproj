@@ -24,6 +24,8 @@
 		BF5DA71A1F53BB1200FECF3E /* NavBGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7191F53BB1200FECF3E /* NavBGViewController.m */; };
 		BF5DA71D1F53E76900FECF3E /* AlphaNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA71C1F53E76900FECF3E /* AlphaNavViewController.m */; };
 		BFA6F9C01F767C29008ADCC0 /* ScrollNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA6F9BF1F767C29008ADCC0 /* ScrollNavViewController.m */; };
+		BFE5976F20736CB70012825D /* MotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE5976E20736CB70012825D /* MotalViewController.m */; };
+		BFF107A52071F84100A5F618 /* NavTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF107A42071F84100A5F618 /* NavTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,10 @@
 		BF5DA71C1F53E76900FECF3E /* AlphaNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlphaNavViewController.m; sourceTree = "<group>"; };
 		BFA6F9BE1F767C29008ADCC0 /* ScrollNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollNavViewController.h; sourceTree = "<group>"; };
 		BFA6F9BF1F767C29008ADCC0 /* ScrollNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollNavViewController.m; sourceTree = "<group>"; };
+		BFE5976D20736CB70012825D /* MotalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MotalViewController.h; sourceTree = "<group>"; };
+		BFE5976E20736CB70012825D /* MotalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MotalViewController.m; sourceTree = "<group>"; };
+		BFF107A32071F84100A5F618 /* NavTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavTableViewController.h; sourceTree = "<group>"; };
+		BFF107A42071F84100A5F618 /* NavTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +145,10 @@
 				BF5DA71C1F53E76900FECF3E /* AlphaNavViewController.m */,
 				BFA6F9BE1F767C29008ADCC0 /* ScrollNavViewController.h */,
 				BFA6F9BF1F767C29008ADCC0 /* ScrollNavViewController.m */,
+				BFF107A32071F84100A5F618 /* NavTableViewController.h */,
+				BFF107A42071F84100A5F618 /* NavTableViewController.m */,
+				BFE5976D20736CB70012825D /* MotalViewController.h */,
+				BFE5976E20736CB70012825D /* MotalViewController.m */,
 				BF5DA6E81F53B5BA00FECF3E /* Main.storyboard */,
 				BF5DA6EB1F53B5BA00FECF3E /* Assets.xcassets */,
 				BF5DA6ED1F53B5BA00FECF3E /* LaunchScreen.storyboard */,
@@ -229,7 +239,7 @@
 		BF5DA6D41F53B5BA00FECF3E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Darnel Studio";
 				TargetAttributes = {
 					BF5DA6DB1F53B5BA00FECF3E = {
@@ -290,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF5DA70D1F53B5F500FECF3E /* BaseNavigationC.m in Sources */,
+				BFF107A52071F84100A5F618 /* NavTableViewController.m in Sources */,
 				BF5DA71A1F53BB1200FECF3E /* NavBGViewController.m in Sources */,
 				BF5DA7141F53B6B500FECF3E /* TransitionViewController.m in Sources */,
 				BF5DA70E1F53B5F500FECF3E /* BaseViewController.m in Sources */,
@@ -300,6 +311,7 @@
 				BF5DA6E41F53B5BA00FECF3E /* AppDelegate.m in Sources */,
 				BF5DA7171F53B7E300FECF3E /* HiddenNavViewController.m in Sources */,
 				BF5DA7131F53B6B500FECF3E /* FakeNavViewController.m in Sources */,
+				BFE5976F20736CB70012825D /* MotalViewController.m in Sources */,
 				BF5DA6E11F53B5BA00FECF3E /* main.m in Sources */,
 				BF04EBD21F8C6329005A75C6 /* VHLUBS.m in Sources */,
 			);
@@ -357,6 +369,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -364,6 +377,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -411,6 +425,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -418,6 +433,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

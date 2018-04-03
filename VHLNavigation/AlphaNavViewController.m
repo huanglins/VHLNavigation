@@ -12,6 +12,7 @@
 #import "NavBGViewController.h"
 #import "TransitionViewController.h"
 #import "ScrollNavViewController.h"
+#import "NavTableViewController.h"
 #import "VHLNavigation.h"
 
 @interface AlphaNavViewController ()
@@ -77,6 +78,13 @@
     [button5 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button5];
     [button5 addTarget:self action:@selector(goScrollNav:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button6 = [[UIButton alloc] initWithFrame:CGRectMake(100, 300 + 64, 150, 30)];
+    [button6 setTitle:@"TableVC" forState:UIControlStateNormal];
+    [button6 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button6 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button6];
+    [button6 addTarget:self action:@selector(goTableViewController:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -107,6 +115,10 @@
 - (void)goScrollNav:(UIButton *)sender {
     ScrollNavViewController *vc6 = [[ScrollNavViewController alloc] init];
     [self.navigationController pushViewController:vc6 animated:YES];
+}
+- (void)goTableViewController:(UIButton *)sender {
+    NavTableViewController *vc7 = [[NavTableViewController alloc] init];
+    [self.navigationController pushViewController:vc7 animated:YES];
 }
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转

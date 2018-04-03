@@ -717,9 +717,17 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
     if (!fromVC.fakeNavigationBar && ![fromVC vhl_navBarHidden]) {
         CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
                                          [self vhl_navigationBarAndStatusBarHeight]);
+        // 1. 判断边缘布局的方式，UIRectEdgeNone 是以导航栏下面开始的
         if (fromVC.edgesForExtendedLayout == UIRectEdgeNone) {
             fakeNavFrame = CGRectMake(0, -[self vhl_navigationBarAndStatusBarHeight], CGRectGetWidth(self.view.bounds),
                                       [self vhl_navigationBarAndStatusBarHeight]);
+        }
+        // 2. 判断当前 vc 是否是 UITableViewController 或 UICollectionViewController , 因为这种 vc.view 会为 scrollview
+        // ** 虽然 view frame 为全屏开始，但是因为安全区域，使得内容视图在导航栏下面 **
+        // ** 千万不要再设置 edgesForExtendedLayout 为 None，因为 tableview 默认开启了 clipsToBounds 会使得添加的导航栏失效 **
+        if ([fromVC.view isKindOfClass:[UIScrollView class]]) {
+            // 需要重新计算导航栏在滚动视图中的位置
+            fakeNavFrame = [fromVC.view convertRect:fakeNavFrame fromView:fromVC.navigationController.view];
         }
         fromVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
         //fromVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
@@ -732,12 +740,22 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         [fromVC.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:0.0f];
     }
     if (!toVC.fakeNavigationBar && ![toVC vhl_navBarHidden]) {
-        CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
-                                         [self vhl_navigationBarAndStatusBarHeight]);
+        CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),[self vhl_navigationBarAndStatusBarHeight]);
+        // 判断边缘布局的方式，UIRectEdgeNone 是以导航栏下面开始的
         if (toVC.edgesForExtendedLayout == UIRectEdgeNone) {
             fakeNavFrame = CGRectMake(0, -[self vhl_navigationBarAndStatusBarHeight], CGRectGetWidth(self.view.bounds),
                                       [self vhl_navigationBarAndStatusBarHeight]);
         }
+        // 2. 判断当前 vc 是否是 UITableViewController 或 UICollectionViewController , 因为这种 vc.view 会为 tableview
+        // 虽然 view frame 为全屏开始，但是内容视图在不设置 edgesForExtendedLayout 的情况下 adjustedContentInset 为在导航栏下面
+        if ([toVC.view isKindOfClass:[UIScrollView class]]) {
+            fakeNavFrame = [toVC.view convertRect:fakeNavFrame fromView:toVC.navigationController.view];
+            CGPoint offset = ((UIScrollView *)toVC.view).contentOffset;
+            if (offset.y == 0) {
+                fakeNavFrame = CGRectMake(fakeNavFrame.origin.x, fakeNavFrame.origin.y -[self vhl_navigationBarAndStatusBarHeight], fakeNavFrame.size.width, fakeNavFrame.size.height);
+            }
+        }
+        //
         toVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
         //toVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         toVC.fakeNavigationBar.backgroundColor = [toVC vhl_navBackgroundColor];
@@ -895,7 +913,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return [self vhl_statusBarStyle];
 }
-
+/** 获取*/
 /** 获取当前导航栏高度*/
 - (CGFloat)vhl_navgationBarHeight {
     return CGRectGetHeight(self.navigationController.navigationBar.bounds);

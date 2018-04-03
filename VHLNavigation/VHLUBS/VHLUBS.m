@@ -31,7 +31,7 @@
 }
 #pragma mark -
 - (void)vhlubs_viewWillAppear:(BOOL)animated {
-    NSLog(@"UBS - viewWillAppear");
+    //NSLog(@"UBS - viewWillAppear");
     // 调自己
     [self vhlubs_viewWillAppear:animated];
 }
@@ -64,7 +64,7 @@
 }
 
 - (void)vhlubs_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event {
-    NSLog(@"UBS - Action");
+    //NSLog(@"UBS - Action");
     // 调用自己
     [self vhlubs_sendAction:action to:target forEvent:event];
 }

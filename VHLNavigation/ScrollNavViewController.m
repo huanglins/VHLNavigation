@@ -7,6 +7,7 @@
 //
 
 #import "ScrollNavViewController.h"
+#import "FakeNavViewController.h"
 #import "VHLNavigation.h"
 
 @interface ScrollNavViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
@@ -90,6 +91,11 @@
     }
     cell.textLabel.text = [NSString stringWithFormat:@"Cell - %d", (int)indexPath.row];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    FakeNavViewController *fakeVC = [[FakeNavViewController alloc] init];
+    [self.navigationController pushViewController:fakeVC animated:YES];
 }
 
 @end
