@@ -16,6 +16,8 @@
 #import "MotalViewController.h"
 #import "VHLNavigation.h"
 
+#import "BaseNavigationC.h"
+
 @interface FakeNavViewController ()
 
 @end
@@ -93,6 +95,14 @@
     [button7 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button7];
     [button7 addTarget:self action:@selector(goMotalViewController:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button8 = [[UIButton alloc] initWithFrame:CGRectMake(100, 380 + 64, 150, 30)];
+    [button8 setTitle:@"模态返回" forState:UIControlStateNormal];
+    [button8 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button8 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button8];
+    [button8 addTarget:self action:@selector(motalback:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -131,6 +141,11 @@
 - (void)goMotalViewController:(UIButton *)sender {
     MotalViewController *modalVC = [[MotalViewController alloc] init];
     [self presentViewController:modalVC animated:YES completion:^{
+        
+    }];
+}
+- (void)motalback:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
         
     }];
 }

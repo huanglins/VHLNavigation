@@ -593,7 +593,8 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         // 更新导航栏信息
         if (![self vhl_navBarHidden]) {
             // ** 当两个VC都是颜色过渡的时候，这里不设置背景，不然会闪动一下 **
-            if (!self.fakeNavigationBar && ![self isTransitionStyle]) {
+            // ** 模态跳转下，需要更新导航背景，不然有概率出现白色背景
+            if (!self.fakeNavigationBar && (![self isTransitionStyle] || [self isMotal])) {
                 if ([self vhl_navBarBackgroundImage]) {
                     [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundImage:[self vhl_navBarBackgroundImage]];
                 } else {
@@ -705,6 +706,14 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         return NO;
     }
     return YES;
+}
+// 判断当前是否是模态跳转
+- (BOOL)isMotal {
+    UIViewController *toVC = [self toVC];
+    if ([toVC isKindOfClass:[UINavigationController class]]) {
+        return YES;
+    }
+    return NO;
 }
 // 添加一个假的 NavigationBar
 - (void)addFakeNavigationBar {

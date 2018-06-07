@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface MotalViewController : UIViewController
+@interface MotalViewController : BaseViewController
 
 @end
