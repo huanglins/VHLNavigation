@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF04EBD21F8C6329005A75C6 /* VHLUBS.m in Sources */ = {isa = PBXBuildFile; fileRef = BF04EBD11F8C6329005A75C6 /* VHLUBS.m */; };
 		BF5DA6E11F53B5BA00FECF3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA6E01F53B5BA00FECF3E /* main.m */; };
 		BF5DA6E41F53B5BA00FECF3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA6E31F53B5BA00FECF3E /* AppDelegate.m */; };
 		BF5DA6E71F53B5BA00FECF3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA6E61F53B5BA00FECF3E /* ViewController.m */; };
@@ -39,8 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BF04EBD01F8C6329005A75C6 /* VHLUBS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHLUBS.h; sourceTree = "<group>"; };
-		BF04EBD11F8C6329005A75C6 /* VHLUBS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHLUBS.m; sourceTree = "<group>"; };
 		BF5DA6DC1F53B5BA00FECF3E /* VHLNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VHLNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5DA6E01F53B5BA00FECF3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BF5DA6E21F53B5BA00FECF3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -96,15 +93,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BF04EBCF1F8C631D005A75C6 /* VHLUBS */ = {
-			isa = PBXGroup;
-			children = (
-				BF04EBD01F8C6329005A75C6 /* VHLUBS.h */,
-				BF04EBD11F8C6329005A75C6 /* VHLUBS.m */,
-			);
-			path = VHLUBS;
-			sourceTree = "<group>";
-		};
 		BF5DA6D31F53B5BA00FECF3E = {
 			isa = PBXGroup;
 			children = (
@@ -126,7 +114,6 @@
 		BF5DA6DE1F53B5BA00FECF3E /* VHLNavigation */ = {
 			isa = PBXGroup;
 			children = (
-				BF04EBCF1F8C631D005A75C6 /* VHLUBS */,
 				BF5DA7041F53B5CB00FECF3E /* VHLNavigation */,
 				BF5DA7081F53B5F500FECF3E /* BaseVC */,
 				BF5DA6E21F53B5BA00FECF3E /* AppDelegate.h */,
@@ -313,7 +300,6 @@
 				BF5DA7131F53B6B500FECF3E /* FakeNavViewController.m in Sources */,
 				BFE5976F20736CB70012825D /* MotalViewController.m in Sources */,
 				BF5DA6E11F53B5BA00FECF3E /* main.m in Sources */,
-				BF04EBD21F8C6329005A75C6 /* VHLUBS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
