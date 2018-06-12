@@ -98,4 +98,14 @@
     [self.navigationController pushViewController:fakeVC animated:YES];
 }
 
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 @end

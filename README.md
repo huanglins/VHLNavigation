@@ -8,6 +8,7 @@
 ![背景图片](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/背景图片.gif)
 ![隐藏导航栏](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/隐藏导航栏.gif)
 ![导航栏透明度](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/透明度.gif)
+![导航栏滚动](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/导航栏滚动.gif)
 
 参考学习 
 
@@ -56,6 +57,15 @@
 ```
 
 ## 更新
+
+- **2018.06.12**
+修复一个从有状态栏 pop 到无状态栏时，由于导航栏变窄会将底部内容显示出来的问题
+
+- **2018.06.07**
+修复一个模态跳转下，导航栏有概率出现白色背景的问题
+
+- **2018.04.28**
+修复了一个继承自UITableViewController导致导航栏显示偏移的问题
 
 - **2017.09.23**
 修复了一个隐藏导航栏切换到其他样式导航栏时会出现白色背景的问题。增加导航栏浮动。

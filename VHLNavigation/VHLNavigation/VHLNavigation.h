@@ -72,6 +72,10 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 - (void)vhl_setNavBarBackgroundAlpha:(CGFloat)alpha;
 - (CGFloat)vhl_navBarBackgroundAlpha;
 
+/** 设置当前导航栏的 isTranslucent，半透明效果*/
+- (void)vhl_setNavTranslucent:(BOOL)isTranslucent;
+- (BOOL)vhl_isTranslucent;
+
 /** 设置当前导航栏 barTintColor(导航栏背景颜色)*/
 - (void)vhl_setNavBackgroundColor:(UIColor *)color;
 - (UIColor *)vhl_navBackgroundColor;
@@ -109,8 +113,20 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
      [self.navigationController.navigationBar vhl_setBarButtonItemsAlpha:(1 - progress) hasSystemBackIndicator:YES];
  */
 
-/*
- // 默认不支持旋转 - 支持设备自动旋转
+/**
+    translucent
+    影响navigationBar的半透明效果，默认为true。
+ 
+    对于没有明确设置isTranslucent的navigationBar，如果背景图alpha < 1，则isTranslucent = true。反之为false。
+    对于明确设置isTranslucent = true的，如果背景图为不透明，则会为背景图会被添加小于 1 的系统定义的alpha。
+    对于明确设置isTranslucent = false的，如果背景图alpha < 1，会根据barStyle或barTintColor为该图片添加一个相应颜色的不透明背景。
+ */
+
+/**
+ // - 屏幕旋转以及状态栏显示隐藏显示支持 -
+ // View controller-based status bar appearance 需要设置为 YES
+
+ // 1.
  - (BOOL)shouldAutorotate {
      return NO;
  }

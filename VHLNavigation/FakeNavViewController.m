@@ -103,6 +103,12 @@
     [self.view addSubview:button8];
     [button8 addTarget:self action:@selector(motalback:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton *button9 = [[UIButton alloc] initWithFrame:CGRectMake(100, 420 + 64, 150, 30)];
+    [button9 setTitle:@"系统相册" forState:UIControlStateNormal];
+    [button9 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button9 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button9];
+    [button9 addTarget:self action:@selector(motalSystemPhoto:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -149,6 +155,23 @@
         
     }];
 }
+- (void)motalSystemPhoto:(UIButton *)sender {
+    //先确认iOS装置是否有提供访问照片
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        imagePickerController.allowsEditing = YES;      //选择图片是否可以编辑
+        //imagePickerController.delegate = self;
+        if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self presentViewController:imagePickerController animated:YES completion:^{
+                }];
+            }];
+        } else {
+            [self presentViewController:imagePickerController animated:NO completion:nil];
+        }
+    }
+}
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
@@ -160,5 +183,4 @@
 {
     return UIInterfaceOrientationMaskAll;
 }
-
 @end

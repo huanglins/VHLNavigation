@@ -157,20 +157,11 @@ static char kVHLBackgroundImageViewKey;
     }
     self.backgroundView.backgroundColor = color;
 }
-#pragma mark - public method -------
+#pragma mark - public method
 /** 设置当前 NavigationBar 背景透明度*/
 - (void)vhl_setBackgroundAlpha:(CGFloat)alpha {
     UIView *barBackgroundView = self.subviews.firstObject;
     barBackgroundView.alpha = alpha;
-    
-    if (self.isTranslucent) {
-        if ([barBackgroundView subviews].count > 1) {
-            UIView *backgroundEffectView = [[barBackgroundView subviews] objectAtIndex:1];// UIVisualEffectView
-            if (backgroundEffectView != nil) {
-                backgroundEffectView.alpha = alpha;
-            }
-        }
-    }
     
     if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
         for (UIView *view in self.subviews) {
@@ -178,9 +169,17 @@ static char kVHLBackgroundImageViewKey;
                 view.alpha = 0;
             }
         }
-        // iOS 下如果不设置 UIBarBackground 下的UIView的透明度，会显示一个白色图层
+        // iOS11 下如果不设置 UIBarBackground 下的UIView的透明度，会显示一个白色图层
         if (barBackgroundView.subviews.firstObject) {
             barBackgroundView.subviews.firstObject.alpha = alpha;
+        }
+    }
+    if (self.isTranslucent) {
+        if ([barBackgroundView subviews].count > 1) {
+            UIView *backgroundEffectView = [[barBackgroundView subviews] objectAtIndex:1];// UIVisualEffectView
+            if (backgroundEffectView != nil) {
+                backgroundEffectView.alpha = alpha;
+            }
         }
     }
 }
@@ -508,20 +507,20 @@ static int vhlPushDisplayCount = 0;
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return [self.topViewController preferredStatusBarStyle];
 }
-#pragma mark - 屏幕旋转相关 ------------------------------------------------------
-// 是否支持自动转屏
+#pragma mark - 屏幕旋转/状态栏隐藏显示相关 ------------------------------------------
+// 1. 是否支持自动转屏
 - (BOOL)shouldAutorotate {
     return [self.topViewController shouldAutorotate];
 }
-// 支持哪些屏幕方向
+// 2. 支持哪些屏幕方向
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return [self.topViewController supportedInterfaceOrientations];
 }
-// 横屏后设置是否隐藏状态栏
+// 3. 横屏后设置是否隐藏状态栏
 - (BOOL)prefersStatusBarHidden {
     return [self.topViewController prefersStatusBarHidden];
 }
-// 默认的屏幕方向（当前 ViewController 必须是通过模态出来的 UIViewController（模态带导航的无效）方式展现出来的，才会调用这个方法）
+// 4. 默认的屏幕方向（当前 ViewController 必须是通过模态出来的 UIViewController（模态带导航的无效）方式展现出来的，才会调用这个方法）
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return [self.topViewController preferredInterfaceOrientationForPresentation];
 }
@@ -540,6 +539,7 @@ static char kVHLNavSwitchStyleKey;                  // 当前导航栏切换样�
 static char kVHLNavBarHiddenKey;                    // 当前导航栏是否隐藏
 static char kVHLNavBarBackgroundImageKey;           // 当前导航栏背景图片
 static char kVHLNavBarBackgroundAlphaKey;           // 当前导航栏背景透明度
+static char kVHLNavIsTranslucentKey;                // 当前导航栏是否模糊半透明
 static char kVHLNavBarBackgroundColorKey;           // 当前导航栏背景颜色
 static char kVHLNavBarTintColorKey;                 // 当前导航栏按钮颜色
 static char kVHLNavBarTitleColorKey;                // 当前导航栏标题颜色
@@ -548,6 +548,7 @@ static char kVHLNavBarTranslationYKey;              // 当前导航栏浮动高�
 static char kVHLStatusBarStyleKey;                  // 当前导航栏状态栏样式
 
 static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现两种颜色导航栏
+static char kVHLTempBackViewKey;                    // 用于放在 view 最底部，避免切换是显示了下一个 view
 
 // runtime
 + (void)load {
@@ -581,8 +582,9 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         }
         // 当前导航栏是否隐藏
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
-        // 恢复导航栏浮动偏移
+        // 恢复导航栏浮动偏移到默认状态
         if ([self vhl_navBarTranslationY] > 0) {
+            [self vhl_setNavBarTranslationY:0.0f];
             [self.navigationController.navigationBar vhl_setTranslationY:0.0f];
             [self.navigationController.navigationBar vhl_setBarButtonItemsAlpha:1.0f hasSystemBackIndicator:YES];
         }
@@ -594,7 +596,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
         if (![self vhl_navBarHidden]) {
             // ** 当两个VC都是颜色过渡的时候，这里不设置背景，不然会闪动一下 **
             // ** 模态跳转下，需要更新导航背景，不然有概率出现白色背景
-            if (!self.fakeNavigationBar && (![self isTransitionStyle] || [self isMotal])) {
+            if (!self.vhl_fakeNavigationBar && (![self isTransitionStyle] || [self isMotal])) {
                 if ([self vhl_navBarBackgroundImage]) {
                     [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundImage:[self vhl_navBarBackgroundImage]];
                 } else {
@@ -652,7 +654,7 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
     if ([self vhl_navBarHidden]) {
         return;
     }
-    if (!self.fakeNavigationBar) {
+    if (!self.vhl_fakeNavigationBar) {
         if ([self vhl_navBarBackgroundImage]) {
             [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundImage:[self vhl_navBarBackgroundImage]];
         } else {
@@ -723,32 +725,36 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
     [fromVC removeFakeNavigationBar];
     [toVC removeFakeNavigationBar];
     
-    if (!fromVC.fakeNavigationBar && ![fromVC vhl_navBarHidden]) {
+    if (!fromVC.vhl_fakeNavigationBar && ![fromVC vhl_navBarHidden]) {
         CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
                                          [self vhl_navigationBarAndStatusBarHeight]);
-        // 1. 判断边缘布局的方式，UIRectEdgeNone 是以导航栏下面开始的
-        if (fromVC.edgesForExtendedLayout == UIRectEdgeNone) {
-            fakeNavFrame = CGRectMake(0, -[self vhl_navigationBarAndStatusBarHeight], CGRectGetWidth(self.view.bounds),
-                                      [self vhl_navigationBarAndStatusBarHeight]);
-        }
         // 2. 判断当前 vc 是否是 UITableViewController 或 UICollectionViewController , 因为这种 vc.view 会为 scrollview
         // ** 虽然 view frame 为全屏开始，但是因为安全区域，使得内容视图在导航栏下面 **
         // ** 千万不要再设置 edgesForExtendedLayout 为 None，因为 tableview 默认开启了 clipsToBounds 会使得添加的导航栏失效 **
-        if ([fromVC.view isKindOfClass:[UIScrollView class]]) {
+        if ([fromVC.view isKindOfClass:[UIScrollView class]] || fromVC.edgesForExtendedLayout == UIRectEdgeNone) {
             // 需要重新计算导航栏在滚动视图中的位置
             fakeNavFrame = [fromVC.view convertRect:fakeNavFrame fromView:fromVC.navigationController.view];
         }
-        fromVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
+        fromVC.vhl_fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
         //fromVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        fromVC.fakeNavigationBar.backgroundColor = [fromVC vhl_navBackgroundColor];
-        fromVC.fakeNavigationBar.image = [fromVC vhl_navBarBackgroundImage];
-        fromVC.fakeNavigationBar.alpha = [fromVC vhl_navBarBackgroundAlpha];
-        [fromVC.view addSubview:fromVC.fakeNavigationBar];
-        [fromVC.view bringSubviewToFront:fromVC.fakeNavigationBar];
+        fromVC.vhl_fakeNavigationBar.backgroundColor = [fromVC vhl_navBackgroundColor];
+        fromVC.vhl_fakeNavigationBar.image = [fromVC vhl_navBarBackgroundImage];
+        fromVC.vhl_fakeNavigationBar.alpha = [fromVC vhl_navBarBackgroundAlpha];
+        [fromVC.view addSubview:fromVC.vhl_fakeNavigationBar];
+        [fromVC.view bringSubviewToFront:fromVC.vhl_fakeNavigationBar];
         //
         [fromVC.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:0.0f];
+        
+        // - 当从有状态栏切换到无状态栏时，会出现一个当前 vc 显示了底部 vc 的内容，这里增加一个 view 用于遮盖
+        // temp background view
+        CGRect tempviewFrame = fakeNavFrame;
+        tempviewFrame.size.height = tempviewFrame.size.height + 20.0f;
+        fromVC.vhl_tempBackView = [[UIView alloc] initWithFrame:tempviewFrame];
+        fromVC.vhl_tempBackView.backgroundColor = fromVC.view.backgroundColor;
+        [fromVC.view addSubview:fromVC.vhl_tempBackView];
+        [fromVC.view sendSubviewToBack:fromVC.vhl_tempBackView];
     }
-    if (!toVC.fakeNavigationBar && ![toVC vhl_navBarHidden]) {
+    if (!toVC.vhl_fakeNavigationBar && ![toVC vhl_navBarHidden]) {
         CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),[self vhl_navigationBarAndStatusBarHeight]);
         // 判断边缘布局的方式，UIRectEdgeNone 是以导航栏下面开始的
         if (toVC.edgesForExtendedLayout == UIRectEdgeNone) {
@@ -765,30 +771,40 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
             }
         }
         //
-        toVC.fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
+        toVC.vhl_fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
         //toVC.fakeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        toVC.fakeNavigationBar.backgroundColor = [toVC vhl_navBackgroundColor];
-        toVC.fakeNavigationBar.image = [toVC vhl_navBarBackgroundImage];
-        toVC.fakeNavigationBar.alpha = [toVC vhl_navBarBackgroundAlpha];
-        [toVC.view addSubview:toVC.fakeNavigationBar];
-        [toVC.view bringSubviewToFront:toVC.fakeNavigationBar];
+        toVC.vhl_fakeNavigationBar.backgroundColor = [toVC vhl_navBackgroundColor];
+        toVC.vhl_fakeNavigationBar.image = [toVC vhl_navBarBackgroundImage];
+        toVC.vhl_fakeNavigationBar.alpha = [toVC vhl_navBarBackgroundAlpha];
+        [toVC.view addSubview:toVC.vhl_fakeNavigationBar];
+        [toVC.view bringSubviewToFront:toVC.vhl_fakeNavigationBar];
         //
         [toVC.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:0.0f];
     }
 }
 // 将假的导航栏背景删除
 - (void)removeFakeNavigationBar {
-    if (self.fakeNavigationBar) {
-        [self.fakeNavigationBar removeFromSuperview];
-        self.fakeNavigationBar = nil;
+    if (self.vhl_fakeNavigationBar) {
+        [self.vhl_fakeNavigationBar removeFromSuperview];
+        self.vhl_fakeNavigationBar = nil;
+    }
+    if (self.vhl_tempBackView) {
+        [self.vhl_tempBackView removeFromSuperview];
+        self.vhl_tempBackView = nil;
     }
 }
-//
-- (UIImageView *)fakeNavigationBar {
+// -
+- (UIImageView *)vhl_fakeNavigationBar {
     return (UIImageView *)objc_getAssociatedObject(self, &kVHLFakeNavigationBarKey);
 }
-- (void)setFakeNavigationBar:(UIImageView *)navigationBar {
+- (void)setVhl_fakeNavigationBar:(UIImageView *)navigationBar {
     objc_setAssociatedObject(self, &kVHLFakeNavigationBarKey, navigationBar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (UIView *)vhl_tempBackView {
+    return (UIView *)objc_getAssociatedObject(self, &kVHLTempBackViewKey);
+}
+- (void)setVhl_tempBackView:(UIView *)tempbackview {
+    objc_setAssociatedObject(self, &kVHLTempBackViewKey, tempbackview, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 #pragma mark - private method --------------------------------------------------
 - (BOOL)canUpdateNavigationBar {
@@ -851,6 +867,15 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
     id barBackgroundAlpha = objc_getAssociatedObject(self, &kVHLNavBarBackgroundAlphaKey);
     return barBackgroundAlpha ? [barBackgroundAlpha floatValue] : 1.0;
 }
+/** 设置当前导航栏的 isTranslucent，半透明效果*/
+- (void)vhl_setNavTranslucent:(BOOL)isTranslucent {
+    objc_setAssociatedObject(self, &kVHLNavIsTranslucentKey, @(isTranslucent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL)vhl_isTranslucent {
+    id isTranslucent = objc_getAssociatedObject(self, &kVHLNavIsTranslucentKey);
+    return isTranslucent?[isTranslucent boolValue]:NO;
+}
+
 /** 设置当前导航栏 barTintColor(导航栏背景颜色)*/
 - (void)vhl_setNavBackgroundColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kVHLNavBarBackgroundColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -932,19 +957,19 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
     return CGRectGetHeight(self.navigationController.navigationBar.bounds) +
     CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
 }
-#pragma mark - 屏幕旋转相关 ------------------------------------------------------
+#pragma mark - 屏幕旋转/状态栏隐藏显示相关 ------------------------------------------------------
 /** VC 重写以下方法就行*/
-// 横屏状态栏是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
-// 默认不支持旋转 - 支持设备自动旋转
+// 1. 默认不支持旋转 - 是否支持设备自动旋转
 - (BOOL)shouldAutorotate {
     return NO;
 }
-// 支持竖屏显示
+// 2. 支持屏幕旋转的方向
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
+}
+// 3. 横屏状态栏是否隐藏，默认为竖屏不隐藏，横屏隐藏。如果想要横屏也隐藏，那么将该方法拷贝到 VC 中，，返回值为 NO。
+- (BOOL)prefersStatusBarHidden {
+    return NO;
 }
 
 @end
@@ -952,5 +977,3 @@ static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现�
 /**
  objc_setAssociatedObject 来把一个对象与另外一个对象进行关联。该函数需要四个参数：源对象，关键字，关联的对象和一个关联策略。
  */
-
-

@@ -25,6 +25,8 @@
     [super viewDidLoad];
     self.title = @"颜色过渡";
     self.view.backgroundColor = [UIColor whiteColor];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     [self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self vhl_setNavBarShadowImageHidden:YES];
     [self vhl_setNavBarBackgroundAlpha:1.0f];
@@ -82,6 +84,13 @@
     [button6 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button6];
     [button6 addTarget:self action:@selector(goTableViewController:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button9 = [[UIButton alloc] initWithFrame:CGRectMake(100, 340 + 64, 150, 30)];
+    [button9 setTitle:@"系统相册" forState:UIControlStateNormal];
+    [button9 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button9 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button9];
+    [button9 addTarget:self action:@selector(motalSystemPhoto:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -117,6 +126,23 @@
     NavTableViewController *vc7 = [[NavTableViewController alloc] init];
     [self.navigationController pushViewController:vc7 animated:YES];
 }
+- (void)motalSystemPhoto:(UIButton *)sender {
+    //先确认iOS装置是否有提供访问照片
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        imagePickerController.allowsEditing = YES;      //选择图片是否可以编辑
+        //imagePickerController.delegate = self;
+        if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self presentViewController:imagePickerController animated:YES completion:^{
+                }];
+            }];
+        } else {
+            [self presentViewController:imagePickerController animated:NO completion:nil];
+        }
+    }
+}
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate {
@@ -126,9 +152,6 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAll;
-}
-- (BOOL)prefersStatusBarHidden {
-    return NO;
 }
 
 @end

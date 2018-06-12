@@ -20,6 +20,7 @@
     [super viewDidLoad];
     self.title = @"导航栏";
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     
     //[UIColor vhl_setDefaultNavBarShadowImageHidden:YES];
     
@@ -30,6 +31,23 @@
     [self.view addSubview:button];
     button.center = self.view.center;
     [button addTarget:self action:@selector(gonext:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // --------------------------------------------------------------------------------
+    UIView *testview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 120)];
+    testview.backgroundColor = [UIColor yellowColor];
+    [self.view addSubview:testview];
+    
+    UIView *testview1 = [[UIView alloc] initWithFrame:CGRectMake(100, 0, 100, 120)];
+    testview1.backgroundColor = [UIColor redColor];
+    [self.view addSubview:testview1];
+    
+    UIView *testview2 = [[UIView alloc] initWithFrame:CGRectMake(200, 0, 100, 120)];
+    testview2.backgroundColor = [UIColor blueColor];
+    [self.view addSubview:testview2];
+    
+    UIView *testview3 = [[UIView alloc] initWithFrame:CGRectMake(300, 0, 100, 120)];
+    testview3.backgroundColor = [UIColor purpleColor];
+    [self.view addSubview:testview3];
     
 }
 /** prefersLargeTitles 大标题显示 */

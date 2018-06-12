@@ -21,7 +21,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     // 统一定义导航栏返回按钮
     self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem];
     if (self.navigationController.navigationBar) {
