@@ -29,10 +29,11 @@
     //[self vhl_setNavBarBarTintColor:[UIColor clearColor]];
     [self vhl_setNavBarBackgroundAlpha:(rand() % 100 * 0.01)];
     //[self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
-    [self vhl_setNavBackgroundColor:[UIColor whiteColor]];
+    [self vhl_setNavBarBackgroundColor:[UIColor whiteColor]];
     [self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavBar];
-    [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
-    [self vhl_setNavBarTintColor:[UIColor whiteColor]];
+    [self vhl_setNavBarTintColor:[UIColor blackColor]];
+    [self vhl_setNavBarTitleColor:[UIColor blackColor]];
+    self.navBackButtonColor = [UIColor blackColor];
     //[self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
     [self vhl_setNavBarShadowImageHidden:YES];
     
@@ -85,6 +86,24 @@
     [button6 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button6];
     [button6 addTarget:self action:@selector(goTableViewController:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    // --------------------------------------------------------------------------------
+    UIView *testview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 120)];
+    testview.backgroundColor = [UIColor yellowColor];
+    [self.view addSubview:testview];
+    
+    UIView *testview1 = [[UIView alloc] initWithFrame:CGRectMake(100, 0, 100, 120)];
+    testview1.backgroundColor = [UIColor redColor];
+    [self.view addSubview:testview1];
+    
+    UIView *testview2 = [[UIView alloc] initWithFrame:CGRectMake(200, 0, 100, 120)];
+    testview2.backgroundColor = [UIColor blueColor];
+    [self.view addSubview:testview2];
+    
+    UIView *testview3 = [[UIView alloc] initWithFrame:CGRectMake(300, 0, 100, 120)];
+    testview3.backgroundColor = [UIColor purpleColor];
+    [self.view addSubview:testview3];
 }
 
 - (void)goFake:(UIButton *)sender {
@@ -94,7 +113,7 @@
 
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
-    [vc2 vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    [vc2 vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self.navigationController pushViewController:vc2 animated:YES];
 }
 

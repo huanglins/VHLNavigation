@@ -27,8 +27,14 @@
     [super viewDidLoad];
     
     self.title = @"导航栏滚动";
-    [self vhl_setNavBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    [self vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self vhl_setNavBarShadowImageHidden:YES];
+    self.navBackButtonColor = [UIColor blackColor];
+    // 设置一个自定义导航栏View
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    toolBar.translucent = YES;
+    //[self vhl_setNavBarBackgroundView:toolBar];
+    
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
@@ -48,14 +54,12 @@
 #pragma mark - UIScrollview Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
-    NSLog(@"%f", offsetY);
     /** 1. VC 中设置*/
     if (offsetY > 0) {
         [self vhl_setNavBarTranslationY:offsetY];
     } else {
         [self vhl_setNavBarTranslationY:0.0];
     }
-    [self.navigationController.navigationBar vhl_setBarBackIndicatorViewHidden:YES];
     
     /** 2. 自己管理 NavigationBar方式设置导航栏浮动*/
 //    CGFloat navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);
@@ -90,6 +94,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     cell.textLabel.text = [NSString stringWithFormat:@"Cell - %d", (int)indexPath.row];
+    cell.textLabel.textColor = [UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

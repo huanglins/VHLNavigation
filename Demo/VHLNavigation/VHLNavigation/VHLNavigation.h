@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface UIColor (VHLNavigation)
+/** 全局配的属性*/
+@interface VHLNavigation : NSObject
 
 /** 全局设置导航栏背景颜色 */
 + (void)vhl_setDefaultNavBackgroundColor:(UIColor *)color;
@@ -64,21 +65,23 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 - (void)vhl_setNavBarHidden:(BOOL)hidden;
 - (BOOL)vhl_navBarHidden;
 
-/** 设置当前导航栏的背景图片，即使当前导航栏过渡样式为颜色渐变也为执行两种导航栏样式过渡*/
+/** 1. 设置当前导航栏背景 View，当背景图片和背景颜色不能满足的时候，可以通过自定义一个导航栏View*/
+/** 比如想要一个微信首页的模态模糊视图，又想要其他样式切换效果*/
+/** 设置顺序：backgroundView > backgroundImage > backgroundColor */
+- (void)vhl_setNavBarBackgroundView:(UIView *)view;
+- (UIView *)vhl_navBarBackgroundView;
+
+/** 2. 设置当前导航栏的背景图片，即使当前导航栏过渡样式为颜色渐变也为执行两种导航栏样式过渡*/
 - (void)vhl_setNavBarBackgroundImage:(UIImage *)image;
 - (UIImage *)vhl_navBarBackgroundImage;
+
+/** 3. 设置当前导航栏 barTintColor(导航栏背景颜色)*/
+- (void)vhl_setNavBarBackgroundColor:(UIColor *)color;
+- (UIColor *)vhl_navBarBackgroundColor;
 
 /** 设置当前导航栏的透明度*/
 - (void)vhl_setNavBarBackgroundAlpha:(CGFloat)alpha;
 - (CGFloat)vhl_navBarBackgroundAlpha;
-
-/** 设置当前导航栏的 isTranslucent，半透明效果*/
-- (void)vhl_setNavTranslucent:(BOOL)isTranslucent;
-- (BOOL)vhl_isTranslucent;
-
-/** 设置当前导航栏 barTintColor(导航栏背景颜色)*/
-- (void)vhl_setNavBackgroundColor:(UIColor *)color;
-- (UIColor *)vhl_navBackgroundColor;
 
 /** 设置当前导航栏 TintColor(导航栏按钮等颜色)*/
 - (void)vhl_setNavBarTintColor:(UIColor *)color;

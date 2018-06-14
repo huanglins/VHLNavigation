@@ -44,6 +44,8 @@
 #### 其他属性
 
 ```
+设置导航栏背景颜色
+[self vhl_setNavBarBackgroundColor:[UIColor whiteColor]];
 设置导航栏透明度
 [self vhl_setNavBarBackgroundAlpha:1.0f];
 设置状态栏样式
@@ -57,6 +59,9 @@
 ```
 
 ## 更新
+
+- **2018.06.14**
+增加设置导航栏背景View，可以实现比如微信的动态模糊效果与其他效果的切换
 
 - **2018.06.12**
 修复一个从有状态栏 pop 到无状态栏时，由于导航栏变窄会将底部内容显示出来的问题
