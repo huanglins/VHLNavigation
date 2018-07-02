@@ -28,6 +28,8 @@
 // -----------------------------------------------------------------------------
 @interface UINavigationBar (VHLNavigation)
 
+/** 设置当前 NavigationBar 背景 View */
+- (void)vhl_setBackgroundView:(UIView *)view;
 /** 设置当前 NavigationBar 背景图片*/
 - (void)vhl_setBackgroundImage:(UIImage *)image;
 /** 设置当前 NavigationBar 背景颜色*/
@@ -98,6 +100,10 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 /** 设置当前导航栏向上的偏移量(浮动导航栏) 默认0不偏移，(0到44之间，顶部露出状态栏，其他情况不好看)*/
 - (void)vhl_setNavBarTranslationY:(CGFloat)translationY;
 - (CGFloat)vhl_navBarTranslationY;
+
+/** 设置当前状态栏是否隐藏,默认为NO, 不隐藏。这样的话就不需要自己重写 prefersStatusBarHidden 方法来进行隐藏*/
+- (void)vhl_setStatusBarHidden:(BOOL)hidden;
+- (BOOL)vhl_statusBarHidden;
 
 /** 设置当前状态栏样式 白色/黑色，也可以直接重写 preferredStatusBarStyle */
 - (void)vhl_setStatusBarStyle:(UIStatusBarStyle)style;

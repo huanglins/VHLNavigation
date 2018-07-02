@@ -16,6 +16,8 @@
 #import "MotalViewController.h"
 #import "VHLNavigation.h"
 
+#import "VTabBarViewController.h"
+
 #import "BaseNavigationC.h"
 
 @interface FakeNavViewController ()
@@ -32,6 +34,7 @@
     [self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavBar];
     //[self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"millcolorGrad"]];
     //[self vhl_setNavBarBackgroundAlpha:0.f];
+    [self vhl_setStatusBarHidden:YES];
     [self vhl_setNavBarShadowImageHidden:YES];
     [self vhl_setNavBarBackgroundAlpha:1.0f];
     [self vhl_setNavBarTintColor:[UIColor blackColor]];
@@ -189,6 +192,7 @@
         }
     }
 }
+
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate

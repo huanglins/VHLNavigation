@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "VHLNavigation"
-  s.version      = "0.1"
+  s.version      = "0.2"
   s.summary      = "navigationbar color / background image/ alpha / hidden"
   s.homepage     = "https://github.com/huanglins/VHLNavigation"
   s.license      = { :type => "MIT", :file => "LICENSE" }

@@ -25,6 +25,7 @@
 		BFA6F9C01F767C29008ADCC0 /* ScrollNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA6F9BF1F767C29008ADCC0 /* ScrollNavViewController.m */; };
 		BFE5976F20736CB70012825D /* MotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE5976E20736CB70012825D /* MotalViewController.m */; };
 		BFF107A52071F84100A5F618 /* NavTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF107A42071F84100A5F618 /* NavTableViewController.m */; };
+		BFF10A9720EA7F44009DEF05 /* VTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF10A9620EA7F44009DEF05 /* VTabBarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		BFE5976E20736CB70012825D /* MotalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MotalViewController.m; sourceTree = "<group>"; };
 		BFF107A32071F84100A5F618 /* NavTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavTableViewController.h; sourceTree = "<group>"; };
 		BFF107A42071F84100A5F618 /* NavTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavTableViewController.m; sourceTree = "<group>"; };
+		BFF10A9520EA7F44009DEF05 /* VTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VTabBarViewController.h; sourceTree = "<group>"; };
+		BFF10A9620EA7F44009DEF05 /* VTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VTabBarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				BFF107A42071F84100A5F618 /* NavTableViewController.m */,
 				BFE5976D20736CB70012825D /* MotalViewController.h */,
 				BFE5976E20736CB70012825D /* MotalViewController.m */,
+				BFF10A9520EA7F44009DEF05 /* VTabBarViewController.h */,
+				BFF10A9620EA7F44009DEF05 /* VTabBarViewController.m */,
 				BF5DA6E81F53B5BA00FECF3E /* Main.storyboard */,
 				BF5DA6EB1F53B5BA00FECF3E /* Assets.xcassets */,
 				BF5DA6ED1F53B5BA00FECF3E /* LaunchScreen.storyboard */,
@@ -293,6 +298,7 @@
 				BF5DA70E1F53B5F500FECF3E /* BaseViewController.m in Sources */,
 				BF5DA7071F53B5CB00FECF3E /* VHLNavigation.m in Sources */,
 				BF5DA71D1F53E76900FECF3E /* AlphaNavViewController.m in Sources */,
+				BFF10A9720EA7F44009DEF05 /* VTabBarViewController.m in Sources */,
 				BF5DA6E71F53B5BA00FECF3E /* ViewController.m in Sources */,
 				BFA6F9C01F767C29008ADCC0 /* ScrollNavViewController.m in Sources */,
 				BF5DA6E41F53B5BA00FECF3E /* AppDelegate.m in Sources */,

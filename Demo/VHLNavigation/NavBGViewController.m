@@ -105,35 +105,42 @@
 
 - (void)goFake:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
+    vc1.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc1 animated:YES];
 }
 
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
     [vc2 vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    vc2.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc2 animated:YES];
 }
 
 - (void)goNavBG:(UIButton *)sender {
     NavBGViewController *vc3 = [[NavBGViewController alloc] init];
+    vc3.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc3 animated:YES];
 }
 
 - (void)goHidden:(UIButton *)sender {
     HiddenNavViewController *vc4 = [[HiddenNavViewController alloc] init];
+    vc4.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc4 animated:YES];
 }
 
 - (void)goAlphaNav:(UIButton *)sender {
     AlphaNavViewController *vc5 = [[AlphaNavViewController alloc] init];
+    vc5.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc5 animated:YES];
 }
 - (void)goScrollNav:(UIButton *)sender {
     ScrollNavViewController *vc6 = [[ScrollNavViewController alloc] init];
+    vc6.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc6 animated:YES];
 }
 - (void)goTableViewController:(UIButton *)sender {
     NavTableViewController *vc7 = [[NavTableViewController alloc] init];
+    vc7.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc7 animated:YES];
 }
 // ----------------------------------------------------------------------------- 屏幕旋转
@@ -147,7 +154,5 @@
 {
     return UIInterfaceOrientationMaskAll;
 }
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
+
 @end

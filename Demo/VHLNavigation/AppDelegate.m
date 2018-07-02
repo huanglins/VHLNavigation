@@ -11,6 +11,8 @@
 #import "ViewController.h"
 #import "VHLNavigation.h"
 
+#import "VTabBarViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -21,9 +23,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    ViewController *vc = [[ViewController alloc] init];
-    BaseNavigationC *navigationC = [[BaseNavigationC alloc] initWithRootViewController:vc];
-    self.window.rootViewController = navigationC;
+//    ViewController *vc = [[ViewController alloc] init];
+//    BaseNavigationC *navigationC = [[BaseNavigationC alloc] initWithRootViewController:vc];
+//    self.window.rootViewController = navigationC;
+    
+    VTabBarViewController *tabbarC = [[VTabBarViewController alloc] init];
+    self.window.rootViewController = tabbarC;
     
     return YES;
 }

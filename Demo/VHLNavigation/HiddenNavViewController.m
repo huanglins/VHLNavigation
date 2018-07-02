@@ -29,6 +29,7 @@
     
     [self vhl_setStatusBarStyle:UIStatusBarStyleDefault];
     [self vhl_setNavBarHidden:YES];
+    [self vhl_setStatusBarHidden:YES];
     
     //
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 60 + 64, 150, 30)];
@@ -124,9 +125,6 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAll;
-}
-- (BOOL)prefersStatusBarHidden {
-    return NO;
 }
 
 @end

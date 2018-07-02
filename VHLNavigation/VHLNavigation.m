@@ -18,6 +18,7 @@ static char kVHLDefaultNavBarTintColorKey;
 static char kVHLDefaultNavBarTitleColorKey;
 static char kVHLDefaultNavBarShadowImageHiddenKey;
 static char kVHLDefaultStatusBarStyleKey;
+static char kVHLDefaultStatusBarHeightKey;          // 存储默认状态栏高度
 
 /** 颜色过渡*/
 + (UIColor *)middleColor:(UIColor *)fromColor toColor:(UIColor *)toColor percent:(CGFloat)percent {
@@ -87,6 +88,16 @@ static char kVHLDefaultStatusBarStyleKey;
     id style = objc_getAssociatedObject(self, &kVHLDefaultStatusBarStyleKey);
     return (style != nil) ? [style integerValue] : UIStatusBarStyleDefault;
 }
+
+/** 全局设置状态栏样式*/
++ (void)vhl_setDefaultStatusBarHeight:(CGFloat)height {
+    objc_setAssociatedObject(self, &kVHLDefaultStatusBarHeightKey, @(height), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
++ (CGFloat)defaultStatusBarHeight {
+    id style = objc_getAssociatedObject(self, &kVHLDefaultStatusBarHeightKey);
+    return (style != nil) ? [style floatValue] : 0.0;
+}
+
 @end
 
 // -----------------------------------------------------------------------------
@@ -332,6 +343,8 @@ static int vhlPushDisplayCount = 0;
     UIViewController *fromVC = [self.topViewController.transitionCoordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [self.topViewController.transitionCoordinator viewControllerForKey:UITransitionContextToViewControllerKey];
     [self updateNavigationBarWithFromVC:fromVC toVC:toVC progress:percentComplete];
+    
+    NSLog(@"%f", self.navigationBar.subviews[1].frame.origin.y);
     
     // 调用自己
     [self vhl_updateInteractiveTransition:percentComplete];
@@ -579,6 +592,7 @@ static char kVHLNavBarTintColorKey;                 // 当前导航栏按钮颜�
 static char kVHLNavBarTitleColorKey;                // 当前导航栏标题颜色
 static char kVHLNavBarShadowImageHiddenKey;         // 当前导航栏底部黑线是否隐藏
 static char kVHLNavBarTranslationYKey;              // 当前导航栏浮动高度Y
+static char kVHLStatusBarHiddenKey;                 // 当前状态栏是否隐藏
 static char kVHLStatusBarStyleKey;                  // 当前导航栏状态栏样式
 
 static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现两种颜色导航栏
@@ -628,7 +642,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         if (![self vhl_navBarHidden]) {
             // ** 当两个VC都是颜色过渡的时候，这里不设置背景，不然会闪动一下 **
             // ** 模态跳转下，需要更新导航背景，不然有概率出现白色背景
-            if (!self.vhl_fakeNavigationBar && (![self isTransitionStyle] || [self isMotal])) {
+            if (!self.vhl_fakeNavigationBar && (![self isTransitionStyle] || [self isMotal] || [self isRootViewController])) {
                 if ([self vhl_navBarBackgroundView]) {
                     [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundView:[self vhl_navBarBackgroundView]];
                 } else if ([self vhl_navBarBackgroundImage]) {
@@ -646,11 +660,16 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 // 交换方法 - 已经出现
 - (void)vhl_viewDidAppear:(BOOL)animated {
+    if ([self isRootViewController] == NO) {
+        self.pushToCurrentVCFinished = YES;
+    }
     if ([self canUpdateNavigationBar]) {
         // 当前导航栏是否隐藏
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
         [self removeFakeNavigationBar];     // 删除 fake NavigationBar
         [self updateNavigationInfo];
+        [self vhl_setNavBarTranslationY:0.0];
+        [VHLNavigation vhl_setDefaultStatusBarHeight:[self vhl_statusBarHeight]];
     }
     // 调自己
     [self vhl_viewDidAppear:animated];
@@ -661,10 +680,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     if (self.navigationController) {
         // 当前导航栏是否隐藏
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
-        // 恢复导航栏浮动偏移
-        if ([self vhl_navBarTranslationY] > 0) {
-            [self vhl_setNavBarTranslationY:0.0];
-        }
+        
         // 更新导航栏信息
         if (![self vhl_navBarHidden]) {
             [self.navigationController setNeedsNavigationBarUpdateForTintColor:[self vhl_navBarTintColor]];
@@ -680,6 +696,8 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 - (void)vhl_viewDidDisappear:(BOOL)animated {
     // 删除 fake NavigationBar
     [self removeFakeNavigationBar];
+    // 恢复导航栏浮动偏移
+    [self vhl_setNavBarTranslationY:0.0];
     // 调用自己
     [self vhl_viewDidDisappear:animated];
 }
@@ -753,6 +771,27 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     }
     return NO;
 }
+// 判断当前是否是第一个视图
+- (BOOL)isRootViewController {
+    UIViewController *rootViewController = self.navigationController.viewControllers.firstObject;
+    if ([rootViewController isKindOfClass:[UITabBarController class]] == NO) {
+        return rootViewController == self;
+    } else {
+        UITabBarController *tabBarController = (UITabBarController *)rootViewController;
+        return [tabBarController.viewControllers containsObject:self];
+    }
+}
+// 判断是否需要优化导航栏高度：从有状态栏pop到无状态栏,无状态栏VC必须隐藏导航栏
+- (BOOL)isStatusBarDiff {
+    UIViewController *fromVC = [self fromVC];
+    UIViewController *toVC = [self toVC];
+    
+    CGFloat statusBarHeight = [VHLNavigation defaultStatusBarHeight];
+    BOOL needChangeFromNavBarFrame = (![fromVC vhl_statusBarHidden] && [toVC vhl_statusBarHidden]);
+    BOOL heightEqual = [fromVC vhl_navigationBarAndStatusBarHeight] == [fromVC vhl_navgationBarHeight];
+    
+    return (needChangeFromNavBarFrame && heightEqual && statusBarHeight > 0 && [toVC vhl_navBarHidden]);
+}
 // 添加一个假的 NavigationBar
 - (void)addFakeNavigationBar {
     UIViewController *fromVC = [self fromVC];
@@ -771,6 +810,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
             // 需要重新计算导航栏在滚动视图中的位置
             fakeNavFrame = [fromVC.view convertRect:fakeNavFrame fromView:fromVC.navigationController.view];
         }
+        
         fromVC.vhl_fakeNavigationBar = [[UIImageView alloc] initWithFrame:fakeNavFrame];
         if ([fromVC vhl_navBarBackgroundView]) {
             fromVC.vhl_fakeNavigationBar.backgroundColor = [UIColor clearColor];
@@ -790,7 +830,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         // - 当从有状态栏切换到无状态栏时，会出现一个当前 vc 显示了底部 vc 的内容，这里增加一个 view 用于遮盖
         // temp background view
         CGRect tempviewFrame = fakeNavFrame;
-        tempviewFrame.size.height = tempviewFrame.size.height + 20.0f;
+        tempviewFrame.size.height = tempviewFrame.size.height + [VHLNavigation defaultStatusBarHeight]?:20.0f;
         fromVC.vhl_tempBackView = [[UIView alloc] initWithFrame:tempviewFrame];
         fromVC.vhl_tempBackView.backgroundColor = fromVC.view.backgroundColor;
         [fromVC.view addSubview:fromVC.vhl_tempBackView];
@@ -817,7 +857,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         if ([toVC vhl_navBarBackgroundView]) {
             toVC.vhl_fakeNavigationBar.backgroundColor = [UIColor clearColor];
             UIView *view = [toVC vhl_navBarBackgroundView];
-            view.bounds = toVC.vhl_fakeNavigationBar.bounds;
+            view.frame = CGRectMake(0, 0, fakeNavFrame.size.width,fakeNavFrame.size.height);
             [toVC.vhl_fakeNavigationBar addSubview:view];
         } else {
             toVC.vhl_fakeNavigationBar.backgroundColor = [toVC vhl_navBarBackgroundColor];
@@ -829,6 +869,19 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         // 隐藏系统导航栏背景
         [toVC.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:0.0f];
     }
+    /** 新增：从不隐藏状态栏切换到隐藏状态栏，且隐藏状态栏也隐藏了导航栏,优化不隐藏状态栏的显示*/
+//    if (fromVC.vhl_fakeNavigationBar) {
+//        CGFloat statusBarHeight = [VHLNavigation defaultStatusBarHeight];
+//        if ([self isStatusBarDiff]) {
+//            CGRect oldFrame = fromVC.vhl_fakeNavigationBar.frame;
+//            CGRect newFrame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y,
+//                                         oldFrame.size.width, oldFrame.size.height + statusBarHeight);
+//            fromVC.vhl_fakeNavigationBar.frame = newFrame;
+//            for (UIView *view in fromVC.vhl_fakeNavigationBar.subviews) {
+//                view.frame = newFrame;
+//            }
+//        }
+//    }
 }
 // 将假的导航栏背景删除
 - (void)removeFakeNavigationBar {
@@ -983,7 +1036,14 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     id translationY = objc_getAssociatedObject(self, &kVHLNavBarTranslationYKey);
     return translationY?[translationY floatValue]:0;
 }
-
+/** 设置当前状态栏是否隐藏,默认为NO*/
+- (void)vhl_setStatusBarHidden:(BOOL)hidden {
+    objc_setAssociatedObject(self, &kVHLStatusBarHiddenKey, @(hidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL)vhl_statusBarHidden {
+    id hidden = objc_getAssociatedObject(self, &kVHLStatusBarHiddenKey);
+    return hidden?[hidden boolValue]:NO;
+}
 /** 设置当前状态栏样式 白色/黑色 */
 - (void)vhl_setStatusBarStyle:(UIStatusBarStyle)style {
     objc_setAssociatedObject(self, &kVHLStatusBarStyleKey, @(style), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -998,6 +1058,9 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 /** 获取*/
 /** 获取当前导航栏高度*/
+- (CGFloat)vhl_statusBarHeight {
+    return CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+}
 - (CGFloat)vhl_navgationBarHeight {
     return CGRectGetHeight(self.navigationController.navigationBar.bounds);
 }
@@ -1018,7 +1081,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 // 3. 横屏状态栏是否隐藏，默认为竖屏不隐藏，横屏隐藏。如果想要横屏也隐藏，那么将该方法拷贝到 VC 中，，返回值为 NO。
 - (BOOL)prefersStatusBarHidden {
-    return NO;
+    return [self vhl_statusBarHidden];
 }
 
 @end
