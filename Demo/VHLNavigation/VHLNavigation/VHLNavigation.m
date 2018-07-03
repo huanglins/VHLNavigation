@@ -8,6 +8,7 @@
 
 #import "VHLNavigation.h"
 #import <objc/runtime.h>
+#import "sys/utsname.h"
 
 // -----------------------------------------------------------------------------
 // UINavigationBar
@@ -44,6 +45,18 @@ static char kVHLDefaultStatusBarHeightKey;          // 存储默认状态栏高�
     return fromAlpha + (toAlpha - fromAlpha) * percent;
 }
 // --------------------------------------------------- //
++ (BOOL)isiPhoneX {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *platform = [NSString stringWithCString:systemInfo.machine encoding:NSASCIIStringEncoding];
+    if ([platform isEqualToString:@"i386"] || [platform isEqualToString:@"x86_64"]) {
+        // judgment by height when in simulators
+        return (CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(375, 812)) ||
+                CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(812, 375)));
+    }
+    BOOL isIPhoneX = [platform isEqualToString:@"iPhone10,3"] || [platform isEqualToString:@"iPhone10,6"];
+    return isIPhoneX;
+}
 /** 全局设置导航栏背景颜色 */
 + (void)vhl_setDefaultNavBackgroundColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kVHLDefaultNavBarBarTintColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -667,7 +680,6 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         self.pushToCurrentVCFinished = YES;
     }
     if ([self canUpdateNavigationBar]) {
-        // 当前导航栏是否隐藏
         [self vhl_setNavBarTranslationY:0.0];
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
         [self removeFakeNavigationBar];     // 删除 fake NavigationBar
@@ -875,19 +887,6 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         // 隐藏系统导航栏背景
         [toVC.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:0.0f];
     }
-    /** 新增：从不隐藏状态栏切换到隐藏状态栏，且隐藏状态栏也隐藏了导航栏,优化不隐藏状态栏的显示*/
-//    if (fromVC.vhl_fakeNavigationBar) {
-//        CGFloat statusBarHeight = [VHLNavigation defaultStatusBarHeight];
-//        if ([self isStatusBarDiff]) {
-//            CGRect oldFrame = fromVC.vhl_fakeNavigationBar.frame;
-//            CGRect newFrame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y,
-//                                         oldFrame.size.width, oldFrame.size.height + statusBarHeight);
-//            fromVC.vhl_fakeNavigationBar.frame = newFrame;
-//            for (UIView *view in fromVC.vhl_fakeNavigationBar.subviews) {
-//                view.frame = newFrame;
-//            }
-//        }
-//    }
 }
 // 将假的导航栏背景删除
 - (void)removeFakeNavigationBar {
@@ -1050,6 +1049,9 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 - (BOOL)vhl_statusBarHidden {
     id hidden = objc_getAssociatedObject(self, &kVHLStatusBarHiddenKey);
+    if ([VHLNavigation isiPhoneX]) {  // ** iPhoneX 下设置为不能隐藏状态栏
+        return NO;
+    }
     return hidden?[hidden boolValue]:NO;
 }
 /** 设置当前状态栏样式 白色/黑色 */
