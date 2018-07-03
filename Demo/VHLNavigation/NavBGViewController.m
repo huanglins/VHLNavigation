@@ -102,6 +102,9 @@
     testview3.backgroundColor = [UIColor purpleColor];
     [self.view addSubview:testview3];
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
 
 - (void)goFake:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
