@@ -102,6 +102,7 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 - (CGFloat)vhl_navBarTranslationY;
 
 /** 设置当前状态栏是否隐藏,默认为NO, 不隐藏。这样的话就不需要自己重写 prefersStatusBarHidden 方法来进行隐藏*/
+/** < iPhone X 下现在默认是都不隐藏状态栏 > */
 - (void)vhl_setStatusBarHidden:(BOOL)hidden;
 - (BOOL)vhl_statusBarHidden;
 
