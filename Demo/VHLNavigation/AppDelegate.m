@@ -26,7 +26,7 @@
 //    ViewController *vc = [[ViewController alloc] init];
 //    BaseNavigationC *navigationC = [[BaseNavigationC alloc] initWithRootViewController:vc];
 //    self.window.rootViewController = navigationC;
-    
+
     VTabBarViewController *tabbarC = [[VTabBarViewController alloc] init];
     self.window.rootViewController = tabbarC;
     

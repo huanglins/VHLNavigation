@@ -12,6 +12,9 @@
 /** 全局配的属性*/
 @interface VHLNavigation : NSObject
 
+/** 判断是否是 iPhone X 系列的异形屏*/
++ (BOOL)vhl_isIPhoneXSeries;
+
 /** 全局设置导航栏背景颜色 */
 + (void)vhl_setDefaultNavBackgroundColor:(UIColor *)color;
 /** 全局设置导航栏按钮颜色 */
@@ -81,7 +84,7 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 - (void)vhl_setNavBarBackgroundColor:(UIColor *)color;
 - (UIColor *)vhl_navBarBackgroundColor;
 
-/** 设置当前导航栏的透明度*/
+/** 设置当前导航栏的透明度。需要 translucent = YES */
 - (void)vhl_setNavBarBackgroundAlpha:(CGFloat)alpha;
 - (CGFloat)vhl_navBarBackgroundAlpha;
 

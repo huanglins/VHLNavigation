@@ -45,17 +45,21 @@ static char kVHLDefaultStatusBarHeightKey;          // 存储默认状态栏高�
     return fromAlpha + (toAlpha - fromAlpha) * percent;
 }
 // --------------------------------------------------- //
-+ (BOOL)isiPhoneX {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString *platform = [NSString stringWithCString:systemInfo.machine encoding:NSASCIIStringEncoding];
-    if ([platform isEqualToString:@"i386"] || [platform isEqualToString:@"x86_64"]) {
-        // judgment by height when in simulators
-        return (CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(375, 812)) ||
-                CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(812, 375)));
+/** 判断是否是 iPhone X 系列的异形屏*/
++ (BOOL)vhl_isIPhoneXSeries {
+    BOOL iPhoneXSeries = NO;
+    // 如果不是 iPhone
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
+        return iPhoneXSeries;
     }
-    BOOL isIPhoneX = [platform isEqualToString:@"iPhone10,3"] || [platform isEqualToString:@"iPhone10,6"];
-    return isIPhoneX;
+    // 判断底部安全区域
+    if (@available(iOS 11.0, *)) {
+        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        if (mainWindow.safeAreaInsets.bottom > 0.0) {
+            iPhoneXSeries = YES;
+        }
+    }
+    return iPhoneXSeries;
 }
 /** 全局设置导航栏背景颜色 */
 + (void)vhl_setDefaultNavBackgroundColor:(UIColor *)color {
@@ -1049,7 +1053,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 - (BOOL)vhl_statusBarHidden {
     id hidden = objc_getAssociatedObject(self, &kVHLStatusBarHiddenKey);
-    if ([VHLNavigation isiPhoneX]) {  // ** iPhoneX 下设置为不能隐藏状态栏
+    if ([VHLNavigation vhl_isIPhoneXSeries]) {  // ** iPhoneX 下设置为不能隐藏状态栏
         return NO;
     }
     return hidden?[hidden boolValue]:NO;
