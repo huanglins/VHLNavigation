@@ -609,6 +609,7 @@ static char kVHLNavBarShadowImageHiddenKey;         // 当前导航栏底部黑�
 static char kVHLNavBarTranslationYKey;              // 当前导航栏浮动高度Y
 static char kVHLStatusBarHiddenKey;                 // 当前状态栏是否隐藏
 static char kVHLStatusBarStyleKey;                  // 当前导航栏状态栏样式
+static char kVHLInteractivePopEnableKey;            // 当前侧滑手势是否可用
 
 static char kVHLFakeNavigationBarKey;               // 假的导航栏，实现两种颜色导航栏
 static char kVHLTempBackViewKey;                    // 用于放在 view 最底部，避免切换是显示了下一个 view
@@ -688,6 +689,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
         [self removeFakeNavigationBar];     // 删除 fake NavigationBar
         [self updateNavigationInfo];
+        [self updateInteractivePopGestureRecognizer];
         [VHLNavigation vhl_setDefaultStatusBarHeight:[self vhl_statusBarHeight]];
     }
     // 调自己
@@ -742,6 +744,16 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:[self vhl_navBarBackgroundAlpha]];
     [self.navigationController setNeedsNavigationBarUpdateForShadowImageHidden:[self vhl_navBarShadowImageHidden]];
     [self vhl_setNavBarTranslationY:[self vhl_navBarTranslationY]];
+}
+// 更新侧滑手势
+- (void)updateInteractivePopGestureRecognizer {
+    if (self.navigationController && [self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        if (self.navigationController.viewControllers.count <= 1) {
+            self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        } else {
+            self.navigationController.interactivePopGestureRecognizer.enabled = [self vhl_interactivePopGestureRecognizerEnable];
+        }
+    }
 }
 #pragma mark - fake navigation bar ---------------------------------------------
 - (UIViewController *)fromVC {
@@ -1069,6 +1081,14 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return [self vhl_statusBarStyle];
+}
+/** 设置当前是否启用侧滑手势，默认启用*/
+- (void)vhl_setInteractivePopGestureRecognizerEnable:(BOOL)enable {
+    objc_setAssociatedObject(self, &kVHLInteractivePopEnableKey, @(enable), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL)vhl_interactivePopGestureRecognizerEnable {
+    id enable = objc_getAssociatedObject(self, &kVHLInteractivePopEnableKey);
+    return enable?[enable boolValue]:YES;
 }
 /** 获取*/
 /** 获取当前导航栏高度*/

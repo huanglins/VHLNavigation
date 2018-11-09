@@ -36,6 +36,9 @@
     if (self.viewControllers.count <= 1) {
         return NO;
     }
+    if ([[self valueForKey:@"_isTransitioning"] boolValue]) {
+        return NO;
+    }
     return YES;
 }
 // 允许同时响应多个手势

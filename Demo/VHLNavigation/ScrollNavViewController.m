@@ -54,12 +54,18 @@
 #pragma mark - UIScrollview Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
+    NSLog(@"%f", offsetY);
     /** 1. VC 中设置*/
     if (offsetY > 0) {
-        [self vhl_setNavBarTranslationY:offsetY];
+        if (offsetY <= 64) {
+            [self vhl_setNavBarBackgroundAlpha:offsetY / 64.0f];
+        }
+        //[self vhl_setNavBarTranslationY:offsetY];
     } else {
-        [self vhl_setNavBarTranslationY:0.0];
+        [self vhl_setNavBarTranslationY:1.0];
+        //[self vhl_setNavBarBackgroundAlpha:1.0];
     }
+    
     
     /** 2. 自己管理 NavigationBar方式设置导航栏浮动*/
 //    CGFloat navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);

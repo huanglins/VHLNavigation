@@ -113,6 +113,11 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 - (void)vhl_setStatusBarStyle:(UIStatusBarStyle)style;
 - (UIStatusBarStyle)vhl_statusBarStyle;
 
+/** 设置当前是否启用侧滑手势，默认启用*/
+// 需要在自己的 BaseNavigationController 中重写 gestureRecognizerShouldBegin 以解决一些侧滑手势的 bug
+- (void)vhl_setInteractivePopGestureRecognizerEnable:(BOOL)enable;
+- (BOOL)vhl_interactivePopGestureRecognizerEnable;
+
 /** 获取当前导航栏高度*/
 - (CGFloat)vhl_navgationBarHeight;
 /** 获取当前导航栏加状态栏高度*/

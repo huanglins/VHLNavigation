@@ -33,6 +33,7 @@
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
     [self vhl_setNavBarTintColor:[UIColor whiteColor]];
     [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self vhl_setInteractivePopGestureRecognizerEnable:NO];
     //[self vhl_setNavTranslucent:YES];
     
     //
