@@ -58,9 +58,9 @@
     /** 1. VC 中设置*/
     if (offsetY > 0) {
         if (offsetY <= 64) {
-            [self vhl_setNavBarBackgroundAlpha:offsetY / 64.0f];
+            //[self vhl_setNavBarBackgroundAlpha:offsetY / 64.0f];
         }
-        //[self vhl_setNavBarTranslationY:offsetY];
+        [self vhl_setNavBarTranslationY:offsetY];
     } else {
         [self vhl_setNavBarTranslationY:1.0];
         //[self vhl_setNavBarBackgroundAlpha:1.0];

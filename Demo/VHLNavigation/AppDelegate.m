@@ -30,6 +30,8 @@
     VTabBarViewController *tabbarC = [[VTabBarViewController alloc] init];
     self.window.rootViewController = tabbarC;
     
+    [VHLNavigation vhl_setDefaultNavBarTintColor:[UIColor blackColor]];
+    
     return YES;
 }
 

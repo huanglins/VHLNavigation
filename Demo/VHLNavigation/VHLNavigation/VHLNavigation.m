@@ -656,7 +656,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
             [self vhl_setNavBarTranslationY:0.0];
         }
         // 添加一个假 NavigationBar
-        if ([self shouldAddFakeNavigationBar]) {
+        if ([self shouldAddFakeNavigationBar] && ![self isMotal]) {
             [self addFakeNavigationBar];
         }
         // 更新导航栏信息
@@ -684,10 +684,12 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     if ([self isRootViewController] == NO) {
         self.pushToCurrentVCFinished = YES;
     }
+    if (self.vhl_fakeNavigationBar) {
+        [self removeFakeNavigationBar];     // 删除 fake NavigationBar
+    }
     if ([self canUpdateNavigationBar]) {
         [self vhl_setNavBarTranslationY:0.0];
-        [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
-        [self removeFakeNavigationBar];     // 删除 fake NavigationBar
+        // [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
         [self updateNavigationInfo];
         [self updateInteractivePopGestureRecognizer];
         [VHLNavigation vhl_setDefaultStatusBarHeight:[self vhl_statusBarHeight]];
@@ -930,7 +932,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 #pragma mark - private method --------------------------------------------------
 - (BOOL)canUpdateNavigationBar {
-    // 如果当前有导航栏，且当前是全屏，//且没有手动设置隐藏导航栏
+    // 如果当前有导航栏，且当前是全屏
     if (self.navigationController && [self.navigationController.viewControllers containsObject:self]) {
         return YES;
     }

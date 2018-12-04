@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6DCB20BF99E28FB64361C65F /* libPods-VHLNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B25AFD04D9803E4C0051698B /* libPods-VHLNavigation.a */; };
 		BF5DA6E11F53B5BA00FECF3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA6E01F53B5BA00FECF3E /* main.m */; };
 		BF5DA6E41F53B5BA00FECF3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA6E31F53B5BA00FECF3E /* AppDelegate.m */; };
 		BF5DA6E71F53B5BA00FECF3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA6E61F53B5BA00FECF3E /* ViewController.m */; };
@@ -17,15 +18,16 @@
 		BF5DA7071F53B5CB00FECF3E /* VHLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7061F53B5CB00FECF3E /* VHLNavigation.m */; };
 		BF5DA70D1F53B5F500FECF3E /* BaseNavigationC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA70A1F53B5F500FECF3E /* BaseNavigationC.m */; };
 		BF5DA70E1F53B5F500FECF3E /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA70C1F53B5F500FECF3E /* BaseViewController.m */; };
-		BF5DA7131F53B6B500FECF3E /* FakeNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7101F53B6B500FECF3E /* FakeNavViewController.m */; };
 		BF5DA7141F53B6B500FECF3E /* TransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7121F53B6B500FECF3E /* TransitionViewController.m */; };
 		BF5DA7171F53B7E300FECF3E /* HiddenNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7161F53B7E300FECF3E /* HiddenNavViewController.m */; };
 		BF5DA71A1F53BB1200FECF3E /* NavBGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7191F53BB1200FECF3E /* NavBGViewController.m */; };
 		BF5DA71D1F53E76900FECF3E /* AlphaNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA71C1F53E76900FECF3E /* AlphaNavViewController.m */; };
+		BF9D66E421B61AB100C94258 /* FakeNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA7101F53B6B500FECF3E /* FakeNavViewController.m */; };
 		BFA6F9C01F767C29008ADCC0 /* ScrollNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA6F9BF1F767C29008ADCC0 /* ScrollNavViewController.m */; };
 		BFE5976F20736CB70012825D /* MotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE5976E20736CB70012825D /* MotalViewController.m */; };
 		BFF107A52071F84100A5F618 /* NavTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF107A42071F84100A5F618 /* NavTableViewController.m */; };
 		BFF10A9720EA7F44009DEF05 /* VTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF10A9620EA7F44009DEF05 /* VTabBarViewController.m */; };
+		E76CB6AB5D4B6ABBC864F259 /* libPods-VHLNavigationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 687E5FAC6893CFD764D834CA /* libPods-VHLNavigationTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09DC24226756835C052C6E9E /* Pods-VHLNavigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHLNavigation.debug.xcconfig"; path = "Target Support Files/Pods-VHLNavigation/Pods-VHLNavigation.debug.xcconfig"; sourceTree = "<group>"; };
+		2A0857C5F1B49CA70AE81CDC /* Pods-VHLNavigationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHLNavigationTests.release.xcconfig"; path = "Target Support Files/Pods-VHLNavigationTests/Pods-VHLNavigationTests.release.xcconfig"; sourceTree = "<group>"; };
+		55DB1936F0C612CA9FBC2209 /* Pods-VHLNavigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHLNavigation.release.xcconfig"; path = "Target Support Files/Pods-VHLNavigation/Pods-VHLNavigation.release.xcconfig"; sourceTree = "<group>"; };
+		687E5FAC6893CFD764D834CA /* libPods-VHLNavigationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VHLNavigationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B25AFD04D9803E4C0051698B /* libPods-VHLNavigation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VHLNavigation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5DA6DC1F53B5BA00FECF3E /* VHLNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VHLNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5DA6E01F53B5BA00FECF3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BF5DA6E21F53B5BA00FECF3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -76,6 +83,7 @@
 		BFF107A42071F84100A5F618 /* NavTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavTableViewController.m; sourceTree = "<group>"; };
 		BFF10A9520EA7F44009DEF05 /* VTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VTabBarViewController.h; sourceTree = "<group>"; };
 		BFF10A9620EA7F44009DEF05 /* VTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VTabBarViewController.m; sourceTree = "<group>"; };
+		E5D40893E46A122594835660 /* Pods-VHLNavigationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHLNavigationTests.debug.xcconfig"; path = "Target Support Files/Pods-VHLNavigationTests/Pods-VHLNavigationTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DCB20BF99E28FB64361C65F /* libPods-VHLNavigation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,18 +99,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E76CB6AB5D4B6ABBC864F259 /* libPods-VHLNavigationTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7963F497E1D48E9CBC591DB9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				09DC24226756835C052C6E9E /* Pods-VHLNavigation.debug.xcconfig */,
+				55DB1936F0C612CA9FBC2209 /* Pods-VHLNavigation.release.xcconfig */,
+				E5D40893E46A122594835660 /* Pods-VHLNavigationTests.debug.xcconfig */,
+				2A0857C5F1B49CA70AE81CDC /* Pods-VHLNavigationTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		BF5DA6D31F53B5BA00FECF3E = {
 			isa = PBXGroup;
 			children = (
 				BF5DA6DE1F53B5BA00FECF3E /* VHLNavigation */,
 				BF5DA6F81F53B5BB00FECF3E /* VHLNavigationTests */,
 				BF5DA6DD1F53B5BA00FECF3E /* Products */,
+				7963F497E1D48E9CBC591DB9 /* Pods */,
+				C5D84AD2995ABFB09C767032 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -187,6 +210,15 @@
 			path = BaseVC;
 			sourceTree = "<group>";
 		};
+		C5D84AD2995ABFB09C767032 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B25AFD04D9803E4C0051698B /* libPods-VHLNavigation.a */,
+				687E5FAC6893CFD764D834CA /* libPods-VHLNavigationTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -194,9 +226,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF5DA6FE1F53B5BB00FECF3E /* Build configuration list for PBXNativeTarget "VHLNavigation" */;
 			buildPhases = (
+				835449A2F316D82E5BA01E67 /* [CP] Check Pods Manifest.lock */,
 				BF5DA6D81F53B5BA00FECF3E /* Sources */,
 				BF5DA6D91F53B5BA00FECF3E /* Frameworks */,
 				BF5DA6DA1F53B5BA00FECF3E /* Resources */,
+				3955FD4EF8F4AEB509B286F7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -211,6 +245,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF5DA7011F53B5BB00FECF3E /* Build configuration list for PBXNativeTarget "VHLNavigationTests" */;
 			buildPhases = (
+				F2B1F880607F25FBB6515DBC /* [CP] Check Pods Manifest.lock */,
 				BF5DA6F11F53B5BB00FECF3E /* Sources */,
 				BF5DA6F21F53B5BB00FECF3E /* Frameworks */,
 				BF5DA6F31F53B5BB00FECF3E /* Resources */,
@@ -286,11 +321,95 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3955FD4EF8F4AEB509B286F7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VHLNavigation/Pods-VHLNavigation-resources.sh",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_1.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_2.png",
+				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoActionSheet.xib",
+				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoBrowserCell.xib",
+				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoBrowser.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_amatorka.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_miss_etikate.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_soft_elegance_1.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_soft_elegance_2.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoActionSheet.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoBrowserCell.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoBrowser.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VHLNavigation/Pods-VHLNavigation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		835449A2F316D82E5BA01E67 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VHLNavigation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2B1F880607F25FBB6515DBC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VHLNavigationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BF5DA6D81F53B5BA00FECF3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF9D66E421B61AB100C94258 /* FakeNavViewController.m in Sources */,
 				BF5DA70D1F53B5F500FECF3E /* BaseNavigationC.m in Sources */,
 				BFF107A52071F84100A5F618 /* NavTableViewController.m in Sources */,
 				BF5DA71A1F53BB1200FECF3E /* NavBGViewController.m in Sources */,
@@ -303,7 +422,6 @@
 				BFA6F9C01F767C29008ADCC0 /* ScrollNavViewController.m in Sources */,
 				BF5DA6E41F53B5BA00FECF3E /* AppDelegate.m in Sources */,
 				BF5DA7171F53B7E300FECF3E /* HiddenNavViewController.m in Sources */,
-				BF5DA7131F53B6B500FECF3E /* FakeNavViewController.m in Sources */,
 				BFE5976F20736CB70012825D /* MotalViewController.m in Sources */,
 				BF5DA6E11F53B5BA00FECF3E /* main.m in Sources */,
 			);
@@ -455,13 +573,14 @@
 		};
 		BF5DA6FF1F53B5BB00FECF3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09DC24226756835C052C6E9E /* Pods-VHLNavigation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYG5F947FP;
 				INFOPLIST_FILE = VHLNavigation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.vincents.VHLNavigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -471,13 +590,14 @@
 		};
 		BF5DA7001F53B5BB00FECF3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55DB1936F0C612CA9FBC2209 /* Pods-VHLNavigation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYG5F947FP;
 				INFOPLIST_FILE = VHLNavigation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.vincents.VHLNavigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -487,6 +607,7 @@
 		};
 		BF5DA7021F53B5BB00FECF3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5D40893E46A122594835660 /* Pods-VHLNavigationTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = FZT42497ZM;
@@ -500,6 +621,7 @@
 		};
 		BF5DA7031F53B5BB00FECF3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A0857C5F1B49CA70AE81CDC /* Pods-VHLNavigationTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = FZT42497ZM;

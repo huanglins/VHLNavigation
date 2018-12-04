@@ -20,6 +20,8 @@
 
 #import "BaseNavigationC.h"
 
+#import "ZLPhotoActionSheet.h"
+
 @interface FakeNavViewController ()
 
 @end
@@ -37,6 +39,7 @@
     [self vhl_setStatusBarHidden:YES];
     [self vhl_setNavBarShadowImageHidden:YES];
     [self vhl_setNavBarBackgroundAlpha:1.0f];
+    [self vhl_setNavBarHidden:NO];
     [self vhl_setNavBarTintColor:[UIColor blackColor]];
     [self vhl_setNavBarTitleColor:[UIColor blackColor]];
     self.navBackButtonColor = [UIColor blackColor];
@@ -112,6 +115,13 @@
     [button9 setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:button9];
     [button9 addTarget:self action:@selector(motalSystemPhoto:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button10 = [[UIButton alloc] initWithFrame:CGRectMake(100, 460 + 64, 150, 30)];
+    [button10 setTitle:@"ZLPhotoBrowser" forState:UIControlStateNormal];
+    [button10 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button10 setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:button10];
+    [button10 addTarget:self action:@selector(motalZLPhotoBrowser:) forControlEvents:UIControlEventTouchUpInside];
     
     // --------------------------------------------------------------------------------
     UIView *testview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 120)];
@@ -192,7 +202,29 @@
         }
     }
 }
+- (void)motalZLPhotoBrowser:(UIButton *)sender  {
+    ZLPhotoActionSheet *ac = [[ZLPhotoActionSheet alloc] init];
 
+    //相册参数配置，configuration有默认值，可直接使用并对其属性进行修改
+    ac.configuration.maxSelectCount = 5;
+    ac.configuration.maxPreviewCount = 10;
+
+    //如调用的方法无sender参数，则该参数必传
+    ac.sender = self;
+
+    //选择回调
+    [ac setSelectImageBlock:^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
+        //your codes
+    }];
+
+    //调用相册
+    [ac showPreviewAnimated:YES];
+    
+    //预览网络图片
+//    [ac previewPhotos:arrNetImages index:0 hideToolBar:YES complete:^(NSArray * _Nonnull photos) {
+//        //your codes
+//    }];
+}
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate

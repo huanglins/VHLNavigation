@@ -1,0 +1,26 @@
+PODS:
+  - GPUImage (0.1.7)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - ZLPhotoBrowser (2.7.6):
+    - GPUImage
+    - SDWebImage
+
+DEPENDENCIES:
+  - ZLPhotoBrowser
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - GPUImage
+    - SDWebImage
+    - ZLPhotoBrowser
+
+SPEC CHECKSUMS:
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  ZLPhotoBrowser: 6dfadc4706429424f0a851fe40752aff076689ab
+
+PODFILE CHECKSUM: 3cb2e6b7156f293d3e8fdc9f8e80823f9e61f48b
+
+COCOAPODS: 1.6.0.beta.2
