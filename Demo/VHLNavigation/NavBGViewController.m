@@ -106,6 +106,10 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setInterfaceOrientation:UIInterfaceOrientationPortrait];
+}
 
 - (void)goFake:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
@@ -147,16 +151,28 @@
     vc7.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc7 animated:YES];
 }
+// 强制转屏
+- (void)setInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector  = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        // 从2开始是因为前两个参数已经被selector和target占用
+        [invocation setArgument:&orientation atIndex:2];
+        [invocation invoke];
+    }
+}
 // ----------------------------------------------------------------------------- 屏幕旋转
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return NO;
 }
 // 支持竖屏显示
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

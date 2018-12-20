@@ -42,4 +42,18 @@
     self.viewControllers = array;
 }
 
+#pragma mark - 控制屏幕旋转方法
+- (BOOL)shouldAutorotate {
+    return [self.selectedViewController shouldAutorotate];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return [self.selectedViewController supportedInterfaceOrientations];
+}
+
+//Presentation推出支持的屏幕旋转
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return [self.selectedViewController preferredInterfaceOrientationForPresentation];
+}
+
 @end

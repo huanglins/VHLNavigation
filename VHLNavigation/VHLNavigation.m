@@ -492,10 +492,13 @@ static int vhlPushDisplayCount = 0;
                 }];
             }
         } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             [coor notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
                 __strong typeof (self) pThis = weakSelf;
                 [pThis dealInteractionChanges:context];
             }];
+#pragma clang diagnostic pop
         }
         return YES;
     }

@@ -92,6 +92,10 @@
     [self.view addSubview:button9];
     [button9 addTarget:self action:@selector(motalSystemPhoto:) forControlEvents:UIControlEventTouchUpInside];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setInterfaceOrientation:UIInterfaceOrientationLandscapeRight];
+}
 
 - (void)goFake:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
@@ -141,6 +145,18 @@
         } else {
             [self presentViewController:imagePickerController animated:NO completion:nil];
         }
+    }
+}
+// 强制转屏
+- (void)setInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector  = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        // 从2开始是因为前两个参数已经被selector和target占用
+        [invocation setArgument:&orientation atIndex:2];
+        [invocation invoke];
     }
 }
 // ----------------------------------------------------------------------------- 屏幕旋转
