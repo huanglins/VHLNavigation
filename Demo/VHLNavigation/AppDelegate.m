@@ -30,6 +30,13 @@
     VTabBarViewController *tabbarC = [[VTabBarViewController alloc] init];
     self.window.rootViewController = tabbarC;
     
+    // 自定义
+    [VHLNavigation vhl_addIgnoreVCClassName:@"NavBGViewController"];
+    // 第三方库
+    [VHLNavigation vhl_addIgnoreVCClassName:@"ZLThumbnailViewController"];
+    [VHLNavigation vhl_addIgnoreVCClassName:@"ZLPhotoBrowser"];
+    [VHLNavigation vhl_addIgnoreVCClassName:@"UIInputWindowController"];
+    [VHLNavigation vhl_addIgnoreVCClassName:@"ZLShowBigImgViewController"];
     [VHLNavigation vhl_setDefaultNavBarTintColor:[UIColor blackColor]];
     
     return YES;

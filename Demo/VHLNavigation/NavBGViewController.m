@@ -28,12 +28,12 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     //[self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavigationBar];
-    [self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"navbg"]];  // millcolorGrad
-    [self vhl_setNavBarShadowImageHidden:YES];
-    [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
-    [self vhl_setNavBarTintColor:[UIColor whiteColor]];
-    [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self vhl_setInteractivePopGestureRecognizerEnable:NO];
+//    [self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"navbg"]];  // millcolorGrad
+//    [self vhl_setNavBarShadowImageHidden:YES];
+//    [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
+//    [self vhl_setNavBarTintColor:[UIColor whiteColor]];
+//    [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
+//    [self vhl_setInteractivePopGestureRecognizerEnable:NO];
     //[self vhl_setNavTranslucent:YES];
     
     //
@@ -102,6 +102,11 @@
     UIView *testview3 = [[UIView alloc] initWithFrame:CGRectMake(300, -90, 100, 120)];
     testview3.backgroundColor = [UIColor purpleColor];
     [self.view addSubview:testview3];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    titleView.backgroundColor = [UIColor orangeColor];
+    self.navigationItem.titleView = titleView;
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -109,6 +114,21 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setInterfaceOrientation:UIInterfaceOrientationPortrait];
+    
+    // 自己设置导航栏样式
+//    NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont fontWithName:@"PingFangSC-Medium" size:18]};
+//    [self.navigationController.navigationBar setTitleTextAttributes:dict];
+    self.navigationController.navigationBar.tintColor = [UIColor blueColor];
+//    //self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont fontWithName:@"PingFangSC-Medium" size:18]};
+//    [self.navigationController.navigationBar setTitleTextAttributes:dict];
+//    self.navigationController.navigationBar.tintColor = [UIColor blueColor];
+//    //self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)goFake:(UIButton *)sender {

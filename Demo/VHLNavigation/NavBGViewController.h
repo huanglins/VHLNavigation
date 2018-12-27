@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface NavBGViewController : BaseViewController
+@interface NavBGViewController : UIViewController //BaseViewController
 
 @end

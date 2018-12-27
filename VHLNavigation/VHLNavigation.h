@@ -26,6 +26,15 @@
 /** 全局设置状态栏样式*/
 + (void)vhl_setDefaultStatusBarStyle:(UIStatusBarStyle)style;
 
+/** !!!全局设置需要忽略的 ViewController
+    在和未设置忽略的导航栏进行切换是会进行两种导航栏样式的切换方式，也可以在 viewWillApper 中设置自己想要的效果，
+    但是建议在该组件可以满足的情况下，尽量使用该组件来设置导航栏的样式
+ */
+/** 全局添加一个需要忽略的 ViewController */
++ (void)vhl_addIgnoreVCClassName:(NSString *)vcClassName;
+/** 删除已添加忽略的 ViewController */
++ (void)vhl_removeIgnoreVCClassName:(NSString *)vcClassName;
+
 @end
 
 // -----------------------------------------------------------------------------

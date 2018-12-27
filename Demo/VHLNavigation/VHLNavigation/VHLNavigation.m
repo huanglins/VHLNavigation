@@ -11,7 +11,6 @@
 #import "sys/utsname.h"
 
 // -----------------------------------------------------------------------------
-// UINavigationBar
 @implementation VHLNavigation
 
 static char kVHLDefaultNavBarBarTintColorKey;
@@ -20,6 +19,8 @@ static char kVHLDefaultNavBarTitleColorKey;
 static char kVHLDefaultNavBarShadowImageHiddenKey;
 static char kVHLDefaultStatusBarStyleKey;
 static char kVHLDefaultStatusBarHeightKey;          // 存储默认状态栏高度
+
+static char kVHLDefaultIgnoreVCListKey;             // 全局忽略数组
 
 /** 颜色过渡*/
 + (UIColor *)middleColor:(UIColor *)fromColor toColor:(UIColor *)toColor percent:(CGFloat)percent {
@@ -113,6 +114,38 @@ static char kVHLDefaultStatusBarHeightKey;          // 存储默认状态栏高�
 + (CGFloat)defaultStatusBarHeight {
     id style = objc_getAssociatedObject(self, &kVHLDefaultStatusBarHeightKey);
     return (style != nil) ? [style floatValue] : 0.0;
+}
+
+// ---------------------------------------------------------------------------
++ (NSMutableArray *)defaultIgnoreVCList {
+    id vcList = objc_getAssociatedObject(self, &kVHLDefaultIgnoreVCListKey);
+    if (!vcList || ![vcList isKindOfClass:[NSMutableArray class]]) {
+        vcList = [NSMutableArray array];
+        objc_setAssociatedObject(self, &kVHLDefaultIgnoreVCListKey, vcList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return vcList;
+}
++ (void)vhl_saveDefaultIgnoreVCList:(NSMutableArray *)vcList {
+    objc_setAssociatedObject(self, &kVHLDefaultIgnoreVCListKey, vcList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
++ (BOOL)vhl_isIgnoreVC:(NSString *)vcName {
+    return [[VHLNavigation defaultIgnoreVCList] containsObject:vcName];
+}
+/** 全局添加一个需要忽略的 ViewController */
++ (void)vhl_addIgnoreVCClassName:(NSString *)vcClassName {
+    NSMutableArray *vcList = [self defaultIgnoreVCList];
+    if (![vcList containsObject:vcClassName]) {
+        [vcList addObject:vcClassName];
+        [VHLNavigation vhl_saveDefaultIgnoreVCList:vcList];
+    }
+}
+/** 全局删除一个需要忽略的 ViewController*/
++ (void)vhl_removeIgnoreVCClassName:(NSString *)vcClassName {
+    NSMutableArray *vcList = [self defaultIgnoreVCList];
+    if ([vcList containsObject:vcClassName]) {
+        [vcList removeObject:vcClassName];
+        [VHLNavigation vhl_saveDefaultIgnoreVCList:vcList];
+    }
 }
 
 @end
@@ -435,6 +468,11 @@ static int vhlPushDisplayCount = 0;
 }
 // ** 根据进度更新导航栏 **
 - (BOOL)updateNavigationBarWithFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC progress:(CGFloat)progress {
+    // 如果 VC 中是设置为被忽略的VC，不处理
+    if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])] ||
+        [VHLNavigation vhl_isIgnoreVC:NSStringFromClass([toVC class])]) {
+        return NO;
+    }
     // 如果 VC 中有隐藏了导航栏的就不做切换效果
     if ([fromVC vhl_navBarHidden] || [toVC vhl_navBarHidden]) {
         return NO;
@@ -639,7 +677,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 // 交换方法 - 将要出现
 - (void)vhl_viewWillAppear:(BOOL)animated {
-    if ([self canUpdateNavigationBar]) {
+    if ([self canUpdateNavigationBar] && ![self isIgnoreVC]) {
         [self setPushToNextVCFinished:NO];
         // iOS 10.3.1 下第一个VC也会出现默认导航栏返回箭头的BUG，
         if (self.navigationController.viewControllers.count == 1) {
@@ -663,7 +701,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
             [self addFakeNavigationBar];
         }
         // 更新导航栏信息
-        if (![self vhl_navBarHidden]) {
+        if (![self vhl_navBarHidden] && ![self isIgnoreVC]) {
             // ** 当两个VC都是颜色过渡的时候，这里不设置背景，不然会闪动一下 **
             // ** 模态跳转下，需要更新导航背景，不然有概率出现白色背景
             if (!self.vhl_fakeNavigationBar && (![self isTransitionStyle] || [self isMotal] || [self isRootViewController])) {
@@ -677,6 +715,12 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
             }
             [self.navigationController setNeedsNavigationBarUpdateForTintColor:[self vhl_navBarTintColor]];
             [self.navigationController setNeedsNavigationBarUpdateForTitleColor:[self vhl_navBarTitleColor]];
+        }
+    } else {
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        // 添加一个假 NavigationBar
+        if ([self shouldAddFakeNavigationBar] && ![self isMotal]) {
+            [self addFakeNavigationBar];
         }
     }
     // 调自己
@@ -692,8 +736,15 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     }
     if ([self canUpdateNavigationBar]) {
         [self vhl_setNavBarTranslationY:0.0];
-        // [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
-        [self updateNavigationInfo];
+        if (![self isIgnoreVC]) {
+            [self updateNavigationInfo];
+        } else {
+            [self.navigationController setNeedsNavigationBarUpdateForBarBackgroundAlpha:1];
+            if (self.navigationController.navigationBar.barTintColor) {
+                [self.navigationController setNeedsNavigationBarUpdateForBarTintColor:self.navigationController.navigationBar.barTintColor];
+            }
+        }
+        
         [self updateInteractivePopGestureRecognizer];
         [VHLNavigation vhl_setDefaultStatusBarHeight:[self vhl_statusBarHeight]];
     }
@@ -703,7 +754,7 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 // 交换方法 - 将要消失
 - (void)vhl_viewWillDisappear:(BOOL)animated {
     // willdisappear 这里不能通过 [self.navigationController.viewControllers containsObject:self] 进行判断是否
-    if (self.navigationController) {
+    if ([self canUpdateNavigationBar] && ![self isIgnoreVC]) {
         // 当前导航栏是否隐藏
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
         // 恢复导航栏浮动偏移
@@ -723,10 +774,12 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 // 交换方法 - 已经消失
 - (void)vhl_viewDidDisappear:(BOOL)animated {
-    // 删除 fake NavigationBar
-    [self removeFakeNavigationBar];
-    // 恢复导航栏浮动偏移
-    [self vhl_setNavBarTranslationY:0.0];
+    if ([self canUpdateNavigationBar]) {
+        // 删除 fake NavigationBar
+        [self removeFakeNavigationBar];
+        // 恢复导航栏浮动偏移
+        [self vhl_setNavBarTranslationY:0.0];
+    }
     // 调用自己
     [self vhl_viewDidDisappear:animated];
 }
@@ -767,15 +820,34 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 - (UIViewController *)toVC {
     return [self.navigationController.topViewController.transitionCoordinator viewControllerForKey:UITransitionContextToViewControllerKey];
 }
-// 是否需要添加一个假的 NavigationBar
+/** 能否更新导航栏*/
+- (BOOL)canUpdateNavigationBar {
+    // 如果当前有导航栏，且当前是全屏
+    if (self.navigationController && [self.navigationController.viewControllers containsObject:self]) {
+        return YES;
+    }
+    return NO;
+}
+/** 是否需要添加一个假的 NavigationBar*/
 - (BOOL)shouldAddFakeNavigationBar {
     // 判断当前导航栏交互的两个VC其中是否设置了导航栏样式为两种颜色导航栏，或者设置了导航栏背景图片，或者透明度不一致(用过渡不好看..)
     UIViewController *fromVC = [self fromVC];
     UIViewController *toVC = [self toVC];
+    if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])] ||
+        [VHLNavigation vhl_isIgnoreVC:NSStringFromClass([toVC class])]) {
+        return YES;
+    }
     if ((fromVC && ([fromVC vhl_navigationSwitchStyle] == 1 || [fromVC vhl_navBarBackgroundImage])) ||
         (toVC && ([toVC vhl_navigationSwitchStyle] == 1 || [toVC vhl_navBarBackgroundImage])) ||
         [fromVC vhl_navBarHidden] != [toVC vhl_navBarHidden] ||
         [fromVC vhl_navBarBackgroundAlpha] != [toVC vhl_navBarBackgroundAlpha]) {
+        return YES;
+    }
+    return NO;
+}
+// 是否是被忽略的 ViewController
+- (BOOL)isIgnoreVC {
+    if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([self class])]) {
         return YES;
     }
     return NO;
@@ -839,7 +911,15 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     [fromVC removeFakeNavigationBar];
     [toVC removeFakeNavigationBar];
     
-    if (!fromVC.vhl_fakeNavigationBar && ![fromVC vhl_navBarHidden]) {
+    if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])] &&
+        [VHLNavigation vhl_isIgnoreVC:NSStringFromClass([toVC class])]) {
+        return;
+    }
+    
+    if ((!fromVC.vhl_fakeNavigationBar && ![fromVC vhl_navBarHidden]) ||
+        ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])] &&
+        ![VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])])) {
+        
         CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),
                                          [self vhl_navigationBarAndStatusBarHeight]);
         // 2. 判断当前 vc 是否是 UITableViewController 或 UICollectionViewController , 因为这种 vc.view 会为 scrollview
@@ -859,6 +939,9 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         } else {
             fromVC.vhl_fakeNavigationBar.backgroundColor = [fromVC vhl_navBarBackgroundColor];
             fromVC.vhl_fakeNavigationBar.image = [fromVC vhl_navBarBackgroundImage];
+            if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])] && fromVC.navigationController.navigationBar.barTintColor) {
+                fromVC.vhl_fakeNavigationBar.backgroundColor = fromVC.navigationController.navigationBar.barTintColor;
+            }
         }
         fromVC.vhl_fakeNavigationBar.alpha = [fromVC vhl_navBarBackgroundAlpha];
         [fromVC.view addSubview:fromVC.vhl_fakeNavigationBar];
@@ -875,7 +958,10 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         [fromVC.view addSubview:fromVC.vhl_tempBackView];
         [fromVC.view sendSubviewToBack:fromVC.vhl_tempBackView];
     }
-    if (!toVC.vhl_fakeNavigationBar && ![toVC vhl_navBarHidden]) {
+    if ((!toVC.vhl_fakeNavigationBar && ![toVC vhl_navBarHidden]) ||
+        ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])] &&
+        ![VHLNavigation vhl_isIgnoreVC:NSStringFromClass([toVC class])] && ![toVC vhl_navBarHidden])) {
+        
         CGRect fakeNavFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds),[self vhl_navigationBarAndStatusBarHeight]);
         // 判断边缘布局的方式，UIRectEdgeNone 是以导航栏下面开始的
         if (toVC.edgesForExtendedLayout == UIRectEdgeNone) {
@@ -901,6 +987,9 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         } else {
             toVC.vhl_fakeNavigationBar.backgroundColor = [toVC vhl_navBarBackgroundColor];
             toVC.vhl_fakeNavigationBar.image = [toVC vhl_navBarBackgroundImage];
+            if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([toVC class])] && toVC.navigationController.navigationBar.barTintColor) {
+                toVC.vhl_fakeNavigationBar.backgroundColor = toVC.navigationController.navigationBar.barTintColor;
+            }
         }
         toVC.vhl_fakeNavigationBar.alpha = [toVC vhl_navBarBackgroundAlpha];
         [toVC.view addSubview:toVC.vhl_fakeNavigationBar];
@@ -934,13 +1023,6 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
     objc_setAssociatedObject(self, &kVHLTempBackViewKey, tempbackview, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 #pragma mark - private method --------------------------------------------------
-- (BOOL)canUpdateNavigationBar {
-    // 如果当前有导航栏，且当前是全屏
-    if (self.navigationController && [self.navigationController.viewControllers containsObject:self]) {
-        return YES;
-    }
-    return NO;
-}
 /** 回到当前VC是否完成*/
 - (void)setPushToCurrentVCFinished:(BOOL)isFinished {
     objc_setAssociatedObject(self, &kVHLPushToCurrentVCFinishedKey, @(isFinished), OBJC_ASSOCIATION_RETAIN_NONATOMIC);

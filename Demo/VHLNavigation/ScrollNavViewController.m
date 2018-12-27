@@ -53,6 +53,9 @@
 }
 #pragma mark - UIScrollview Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!scrollView.isDragging) {
+        return;
+    }
     CGFloat offsetY = scrollView.contentOffset.y;
     NSLog(@"%f", offsetY);
     /** 1. VC 中设置*/

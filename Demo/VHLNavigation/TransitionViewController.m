@@ -94,7 +94,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setInterfaceOrientation:UIInterfaceOrientationLandscapeRight];
+    //[self setInterfaceOrientation:UIInterfaceOrientationLandscapeRight];
 }
 
 - (void)goFake:(UIButton *)sender {

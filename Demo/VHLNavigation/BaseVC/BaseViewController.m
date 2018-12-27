@@ -92,7 +92,7 @@
     self.navBackButton.titleLabel.font = [UIFont systemFontOfSize:16];
     
     self.navBackButton.titleEdgeInsets = UIEdgeInsetsMake(0, -6, 0, 0);     // 图片和字体靠近一点，根据实际情况调整
-    self.navBackButton.contentEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
+    self.navBackButton.contentEdgeInsets = UIEdgeInsetsMake(0, -6, 0, 0);
     [self.navBackButton sizeToFit];
     
     [self.navBackButton addTarget:self action:@selector(navigationItemHandleBack:) forControlEvents:UIControlEventTouchUpInside];
