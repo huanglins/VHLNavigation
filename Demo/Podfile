@@ -7,6 +7,7 @@ target 'VHLNavigation' do
 
   # Pods for VHLNavigation
   pod 'ZLPhotoBrowser'
+  pod 'IQKeyboardManager'
   
   target 'VHLNavigationTests' do
     inherit! :search_paths

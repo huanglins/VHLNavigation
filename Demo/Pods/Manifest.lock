@@ -1,26 +1,30 @@
 PODS:
   - GPUImage (0.1.7)
-  - SDWebImage (4.4.2):
-    - SDWebImage/Core (= 4.4.2)
-  - SDWebImage/Core (4.4.2)
+  - IQKeyboardManager (6.2.0)
+  - SDWebImage (4.4.3):
+    - SDWebImage/Core (= 4.4.3)
+  - SDWebImage/Core (4.4.3)
   - ZLPhotoBrowser (2.7.6):
     - GPUImage
     - SDWebImage
 
 DEPENDENCIES:
+  - IQKeyboardManager
   - ZLPhotoBrowser
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - GPUImage
+    - IQKeyboardManager
     - SDWebImage
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
+  SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   ZLPhotoBrowser: 6dfadc4706429424f0a851fe40752aff076689ab
 
-PODFILE CHECKSUM: 3cb2e6b7156f293d3e8fdc9f8e80823f9e61f48b
+PODFILE CHECKSUM: c3270541e746d5250e3ad7be0bb643f67a7a5e42
 
 COCOAPODS: 1.6.0.beta.2

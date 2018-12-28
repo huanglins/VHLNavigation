@@ -86,6 +86,11 @@
     [self.view addSubview:button6];
     [button6 addTarget:self action:@selector(goTableViewController:) forControlEvents:UIControlEventTouchUpInside];
     
+    // 输入框
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(100, 360 + 64, 150, 30)];
+    textField.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:textField];
+    
     // --------------------------------------------------------------------------------
     UIView *testview = [[UIView alloc] initWithFrame:CGRectMake(0, -90, 100, 120)];
     testview.backgroundColor = [UIColor yellowColor];
@@ -107,6 +112,9 @@
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     titleView.backgroundColor = [UIColor orangeColor];
     self.navigationItem.titleView = titleView;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];

@@ -123,6 +123,11 @@
     [self.view addSubview:button10];
     [button10 addTarget:self action:@selector(motalZLPhotoBrowser:) forControlEvents:UIControlEventTouchUpInside];
     
+    // 输入框
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(100, 520 + 64, 150, 30)];
+    textField.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:textField];
+    
     // --------------------------------------------------------------------------------
     UIView *testview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 120)];
     testview.backgroundColor = [UIColor yellowColor];
@@ -140,7 +145,9 @@
     testview3.backgroundColor = [UIColor purpleColor];
     [self.view addSubview:testview3];
 }
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
 - (void)goFake:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
     [self.navigationController pushViewController:vc1 animated:YES];

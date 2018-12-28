@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C0F2F2CAC333B32279F413CDDB03C8E"
+               BlueprintIdentifier = "9891132F1B3D0204A68A33A81D15B083"
                BlueprintName = "Pods-VHLNavigation"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-VHLNavigation.a">
