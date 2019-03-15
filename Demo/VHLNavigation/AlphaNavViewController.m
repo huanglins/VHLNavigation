@@ -156,8 +156,8 @@
 {
     return UIInterfaceOrientationMaskAll;
 }
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
+//- (BOOL)prefersStatusBarHidden {
+//    return NO;
+//}
 
 @end

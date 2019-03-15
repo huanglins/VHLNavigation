@@ -50,5 +50,8 @@
     return YES;
     //return [gestureRecognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class];
 }
+- (BOOL)prefersStatusBarHidden {
+    return [self.topViewController prefersStatusBarHidden];
+}
 
 @end

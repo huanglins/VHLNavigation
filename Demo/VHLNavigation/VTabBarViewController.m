@@ -55,5 +55,11 @@
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return [self.selectedViewController preferredInterfaceOrientationForPresentation];
 }
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.selectedViewController;
+}
+- (BOOL)prefersStatusBarHidden {
+    return [self.selectedViewController prefersStatusBarHidden];
+}
 
 @end

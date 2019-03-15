@@ -620,12 +620,18 @@ static int vhlPushDisplayCount = 0;
     return [self.topViewController supportedInterfaceOrientations];
 }
 // 3. 横屏后设置是否隐藏状态栏
-- (BOOL)prefersStatusBarHidden {
-    return [self.topViewController prefersStatusBarHidden];
-}
+//- (BOOL)prefersStatusBarHidden {
+//    return [self.topViewController prefersStatusBarHidden];
+//}
 // 4. 默认的屏幕方向（当前 ViewController 必须是通过模态出来的 UIViewController（模态带导航的无效）方式展现出来的，才会调用这个方法）
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return [self.topViewController preferredInterfaceOrientationForPresentation];
+}
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return self.topViewController;
+}
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.topViewController;
 }
 
 @end
@@ -685,10 +691,10 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
         } else {
             [self.navigationController.navigationBar vhl_setBarBackIndicatorViewHidden:NO];
         }
+        [self setNeedsStatusBarAppearanceUpdate];
         // ** 优化从有状态栏+导航栏切换到无状态栏+无导航栏，有状态栏+导航栏的 VC 高度不变
         if ([self isStatusBarDiff]) {
             [self vhl_setStatusBarHidden:NO];
-            [self setNeedsStatusBarAppearanceUpdate];
         }
         // 当前导航栏是否隐藏
         [self.navigationController setNavigationBarHidden:[self vhl_navBarHidden] animated:YES];
@@ -717,11 +723,11 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
             [self.navigationController setNeedsNavigationBarUpdateForTitleColor:[self vhl_navBarTitleColor]];
         }
     } else {
-        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        // [self.navigationController setNavigationBarHidden:NO animated:NO];
         // 添加一个假 NavigationBar
-        if ([self shouldAddFakeNavigationBar] && ![self isMotal]) {
-            [self addFakeNavigationBar];
-        }
+//        if ([self shouldAddFakeNavigationBar] && ![self isMotal]) {
+//            [self addFakeNavigationBar];
+//        }
     }
     // 调自己
     [self vhl_viewWillAppear:animated];
@@ -1187,19 +1193,23 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 }
 /** 获取导航栏加状态栏高度*/
 - (CGFloat)vhl_navigationBarAndStatusBarHeight {
-    return CGRectGetHeight(self.navigationController.navigationBar.bounds) +
-    CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    CGFloat navHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);
+    CGFloat statusHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    // 分享热点，拨打电话等。导航栏从 20 变成 40。
+    statusHeight = [VHLNavigation vhl_isIPhoneXSeries]?statusHeight:MIN(20, statusHeight);
+    
+    return  navHeight + statusHeight;
 }
 #pragma mark - 屏幕旋转/状态栏隐藏显示相关 ------------------------------------------------------
 /** VC 重写以下方法就行*/
 // 1. 默认不支持旋转 - 是否支持设备自动旋转
-- (BOOL)shouldAutorotate {
-    return NO;
-}
+//- (BOOL)shouldAutorotate {
+//    return NO;
+//}
 // 2. 支持屏幕旋转的方向
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 // 3. 横屏状态栏是否隐藏，默认为竖屏不隐藏，横屏隐藏。如果想要横屏也隐藏，那么将该方法拷贝到 VC 中，，返回值为 NO。
 - (BOOL)prefersStatusBarHidden {
     return [self vhl_statusBarHidden];

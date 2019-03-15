@@ -118,8 +118,8 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
+//- (BOOL)prefersStatusBarHidden {
+//    return NO;
+//}
 
 @end

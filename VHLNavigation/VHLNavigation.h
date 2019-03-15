@@ -127,6 +127,8 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
 - (void)vhl_setInteractivePopGestureRecognizerEnable:(BOOL)enable;
 - (BOOL)vhl_interactivePopGestureRecognizerEnable;
 
+/** 设置当前是否需要横屏(默认 NO, 即当前 viewController 不支持横屏)*/
+
 /** 获取当前导航栏高度*/
 - (CGFloat)vhl_navgationBarHeight;
 /** 获取当前导航栏加状态栏高度*/

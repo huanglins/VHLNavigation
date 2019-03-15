@@ -33,6 +33,7 @@
     [self vhl_setNavBarTintColor:[UIColor whiteColor]];
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
     [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self vhl_setStatusBarHidden:YES];
     //[self vhl_setNavBarHidden:YES];
     
     //
@@ -104,6 +105,10 @@
     [super viewWillAppear:animated];
     //[self setInterfaceOrientation:UIInterfaceOrientationLandscapeRight];
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self vhl_setStatusBarHidden:YES];
+}
 
 - (void)goFake:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];
@@ -113,6 +118,7 @@
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
     [vc2 vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    vc2.modalPresentationCapturesStatusBarAppearance = YES;
     [self.navigationController pushViewController:vc2 animated:YES];
 }
 
@@ -178,4 +184,7 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+//- (BOOL)prefersStatusBarHidden {
+//    return YES;
+//}
 @end

@@ -28,7 +28,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     //[self vhl_setNavigationSwitchStyle:VHLNavigationSwitchStyleFakeNavigationBar];
-//    [self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"navbg"]];  // millcolorGrad
+    [self vhl_setNavBarBackgroundImage:[UIImage imageNamed:@"navbg"]];  // millcolorGrad
 //    [self vhl_setNavBarShadowImageHidden:YES];
 //    [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
 //    [self vhl_setNavBarTintColor:[UIColor whiteColor]];

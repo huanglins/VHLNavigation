@@ -29,6 +29,7 @@
 
     VTabBarViewController *tabbarC = [[VTabBarViewController alloc] init];
     self.window.rootViewController = tabbarC;
+    [self.window makeKeyAndVisible];
     
     // 自定义
     [VHLNavigation vhl_addIgnoreVCClassName:@"NavBGViewController"];
