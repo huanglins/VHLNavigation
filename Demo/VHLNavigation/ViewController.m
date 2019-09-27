@@ -24,10 +24,10 @@
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
     [self vhl_setNavBarBackgroundColor:[UIColor whiteColor]];
     // 设置一个自定义导航栏View
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    toolBar.barStyle = UIBarStyleBlack;
-    toolBar.translucent = YES;
-    [self vhl_setNavBarBackgroundView:toolBar];
+//    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+//    toolBar.barStyle = UIBarStyleBlack;
+//    toolBar.translucent = YES;
+//    [self vhl_setNavBarBackgroundView:toolBar];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
     [button setTitle:@"导航栏样式" forState:UIControlStateNormal];
@@ -58,17 +58,17 @@
 /** prefersLargeTitles 大标题显示 */
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    if (@available(iOS 11.0, *)) {
-//        self.navigationController.navigationBar.prefersLargeTitles = YES;
-//        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-//    }
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    if (@available(iOS 11.0, *)) {
-//        self.navigationController.navigationBar.prefersLargeTitles = NO;
-//         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-//    }
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+    }
 }
 - (void)gonext:(UIButton *)sender {
     FakeNavViewController *vc1 = [[FakeNavViewController alloc] init];

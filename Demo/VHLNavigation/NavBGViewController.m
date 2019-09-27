@@ -108,10 +108,10 @@
     testview3.backgroundColor = [UIColor purpleColor];
     [self.view addSubview:testview3];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    titleView.backgroundColor = [UIColor orangeColor];
-    self.navigationItem.titleView = titleView;
+//    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
+//    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+//    titleView.backgroundColor = [UIColor orangeColor];
+//    self.navigationItem.titleView = titleView;
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
@@ -126,7 +126,7 @@
     // 自己设置导航栏样式
 //    NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont fontWithName:@"PingFangSC-Medium" size:18]};
 //    [self.navigationController.navigationBar setTitleTextAttributes:dict];
-    self.navigationController.navigationBar.tintColor = [UIColor blueColor];
+//    self.navigationController.navigationBar.tintColor = [UIColor blueColor];
 //    //self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }

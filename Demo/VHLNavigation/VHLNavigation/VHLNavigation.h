@@ -179,3 +179,35 @@ typedef NS_ENUM(NSInteger, VHLNavigationSwitchStyle) {
     https://github.com/wangrui460/WRNavigationBar
     https://github.com/CrazyGitter/HansNavController
  */
+
+/** 导航栏层级视图
+ 
+ iOS 9
+ 1: _UINavigationBarBackground
+ 2:  _UIBackdropView
+ 3:   _UIBackdropEffectView
+ 3:   UIView
+ 2:  UIImageView
+ 1: _UINavigationBarBackIndicatorView
+ 
+ iOS 10
+ 1: _UIBarBackground
+ 2:  UIImageView
+ 2:  UIVisualEffectView
+ 3:   _UIVisualEffectBackdropView
+ 3:   _UIVisualEffectFilterView
+ 1: _UINavigationBarBackIndicatorView
+ 
+ iOS 11
+ 1: _UIBarBackground
+ 2:  UIImageView
+ 2:  UIVisualEffectView
+ 3:   _UIVisualEffectBackdropView
+ 3:   _UIVisualEffectSubview
+ 1: _UINavigationBarLargeTitleView
+ 2:  UILabel
+ 1: _UINavigationBarContentView
+ 1: _UINavigationBarModernPromptView
+ 2:  UILabel
+ 
+ */

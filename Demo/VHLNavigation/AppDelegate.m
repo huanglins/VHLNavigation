@@ -32,7 +32,7 @@
     [self.window makeKeyAndVisible];
     
     // 自定义
-    [VHLNavigation vhl_addIgnoreVCClassName:@"NavBGViewController"];
+//    [VHLNavigation vhl_addIgnoreVCClassName:@"NavBGViewController"];
     // 第三方库
     [VHLNavigation vhl_addIgnoreVCClassName:@"ZLThumbnailViewController"];
     [VHLNavigation vhl_addIgnoreVCClassName:@"ZLPhotoBrowser"];

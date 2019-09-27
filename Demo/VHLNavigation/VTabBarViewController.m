@@ -12,6 +12,8 @@
 
 #import "VHLNavigation.h"
 
+#import "ViewController.h"
+
 @interface VTabBarViewController ()
 
 @end
@@ -34,10 +36,17 @@
 - (void)setUpSubNavVCs{
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i=0; i < 3; i++) {
-        NavBGViewController *bgVC = [[NavBGViewController alloc] init];
-        BaseNavigationC *navC = [[BaseNavigationC alloc] initWithRootViewController:bgVC];
-        navC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:nil selectedImage:nil];
-        [array addObject:navC];
+        if (i == 0) {
+            ViewController *vc = [[ViewController alloc] init];
+            BaseNavigationC *navC = [[BaseNavigationC alloc] initWithRootViewController:vc];
+            navC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:nil selectedImage:nil];
+            [array addObject:navC];
+        } else {
+            NavBGViewController *bgVC = [[NavBGViewController alloc] init];
+            BaseNavigationC *navC = [[BaseNavigationC alloc] initWithRootViewController:bgVC];
+            navC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:nil selectedImage:nil];
+            [array addObject:navC];
+        }
     }
     self.viewControllers = array;
 }

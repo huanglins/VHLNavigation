@@ -19,8 +19,11 @@
 [WRNavigationBar](https://github.com/wangrui460/WRNavigationBar)
 
 # 如何使用
+手动拖入 将 `VHLNavigation` 文件夹拽入项目中
 
-> 手动拖入 将 VHLNavigation 文件夹拽入项目中，导入头文件：#import "VHLNavigation.h"
+或者通过 pod 导入 `pod 'VHLNavigation'`
+
+导入头文件：`#import "VHLNavigation.h"`
 
 #### 隐藏导航栏
 
@@ -59,6 +62,10 @@
 ```
 
 ## 更新
+
+- **2019.09.27**
+修复 iOS 13 下导航栏默认返回按钮点击闪退问题
+适配 iOS 13 模态跳转 PageSheet 切换样式
 
 -  **2019.03.15**
 修复分享热点，拨打电话等导航栏高度异常问题
