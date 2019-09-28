@@ -55,7 +55,8 @@ static char kVHLDefaultIgnoreVCListKey;             // 全局忽略数组
     }
     // 判断底部安全区域
     if (@available(iOS 11.0, *)) {
-        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        // [[[UIApplication sharedApplication] delegate] window];
+        UIWindow *mainWindow = [UIApplication sharedApplication].windows.firstObject;
         if (mainWindow.safeAreaInsets.bottom > 0.0) {
             iPhoneXSeries = YES;
         }
