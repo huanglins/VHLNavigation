@@ -55,7 +55,8 @@ static char kVHLDefaultIgnoreVCListKey;             // 全局忽略数组
     }
     // 判断底部安全区域
     if (@available(iOS 11.0, *)) {
-        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        // [[[UIApplication sharedApplication] delegate] window];
+        UIWindow *mainWindow = [UIApplication sharedApplication].windows.firstObject;
         if (mainWindow.safeAreaInsets.bottom > 0.0) {
             iPhoneXSeries = YES;
         }
@@ -1211,6 +1212,9 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
 /** 获取*/
 /** 获取当前导航栏高度*/
 - (CGFloat)vhl_statusBarHeight {
+    if (@available(iOS 13.0, *)) {
+        return CGRectGetHeight([UIApplication sharedApplication].windows.firstObject.windowScene.statusBarManager.statusBarFrame);
+    }
     return CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
 }
 - (CGFloat)vhl_navgationBarHeight {

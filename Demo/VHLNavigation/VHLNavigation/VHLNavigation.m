@@ -256,7 +256,8 @@ static char kVHLBackgroundImageViewKey;
     
     if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
         for (UIView *view in self.subviews) {
-            if ([NSStringFromClass([view class]) containsString:@"UIbarBackGround"]) {
+            NSString *viewClassName = NSStringFromClass([view class]);
+            if ([viewClassName containsString:@"UIbarBackGround"]) {        // iOS 13 下名字变为 UIBarBackground
                 view.alpha = 0;
             }
         }
@@ -953,7 +954,11 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
             view.bounds = fromVC.vhl_fakeNavigationBar.bounds;
             [fromVC.vhl_fakeNavigationBar addSubview:view];
         } else {
-            fromVC.vhl_fakeNavigationBar.backgroundColor = [fromVC vhl_navBarBackgroundColor];
+            if (@available(iOS 13.0, *)) {
+                fromVC.vhl_fakeNavigationBar.backgroundColor = [[fromVC vhl_navBarBackgroundColor] colorWithAlphaComponent:[fromVC vhl_navBarBackgroundAlpha]];
+            } else {
+                fromVC.vhl_fakeNavigationBar.backgroundColor = [fromVC vhl_navBarBackgroundColor];
+            }
             fromVC.vhl_fakeNavigationBar.image = [fromVC vhl_navBarBackgroundImage];
             if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([fromVC class])] && fromVC.navigationController.navigationBar.barTintColor) {
                 fromVC.vhl_fakeNavigationBar.backgroundColor = fromVC.navigationController.navigationBar.barTintColor;
@@ -1007,7 +1012,11 @@ static char kVHLTempBackViewKey;                    // 用于放在 view 最底�
             view.frame = CGRectMake(0, 0, fakeNavFrame.size.width,fakeNavFrame.size.height);
             [toVC.vhl_fakeNavigationBar addSubview:view];
         } else {
-            toVC.vhl_fakeNavigationBar.backgroundColor = [toVC vhl_navBarBackgroundColor];
+            if (@available(iOS 13.0, *)) {
+                toVC.vhl_fakeNavigationBar.backgroundColor = [[toVC vhl_navBarBackgroundColor] colorWithAlphaComponent:[toVC vhl_navBarBackgroundAlpha]];
+            } else {
+                toVC.vhl_fakeNavigationBar.backgroundColor = [toVC vhl_navBarBackgroundColor];
+            }
             toVC.vhl_fakeNavigationBar.image = [toVC vhl_navBarBackgroundImage];
             if ([VHLNavigation vhl_isIgnoreVC:NSStringFromClass([toVC class])] && toVC.navigationController.navigationBar.barTintColor) {
                 toVC.vhl_fakeNavigationBar.backgroundColor = toVC.navigationController.navigationBar.barTintColor;
