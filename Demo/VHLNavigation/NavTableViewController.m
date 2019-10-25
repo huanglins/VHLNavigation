@@ -24,6 +24,7 @@
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
     [self vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    [self vhl_setNavBarTintColor: [UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,7 +51,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    FakeNavViewController *vc = [[FakeNavViewController alloc] init];
+    NavTableViewController *vc = [[NavTableViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

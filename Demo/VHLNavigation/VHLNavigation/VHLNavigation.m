@@ -255,7 +255,7 @@ static char kVHLBackgroundImageViewKey;
     UIView *barBackgroundView = self.subviews.firstObject;
     barBackgroundView.alpha = alpha;
     
-    if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
+    if (@available(iOS 11.0, *)) {  // iOS 11 下 UIBarBackground -> UIView/UIImageView
         for (UIView *view in self.subviews) {
             NSString *viewClassName = NSStringFromClass([view class]);
             if ([viewClassName containsString:@"UIbarBackGround"]) {        // iOS 13 下名字变为 UIBarBackground

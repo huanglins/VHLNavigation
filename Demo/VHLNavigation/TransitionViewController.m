@@ -28,9 +28,10 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    [self vhl_setNavBarTintColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     [self vhl_setNavBarShadowImageHidden:YES];
     [self vhl_setNavBarBackgroundAlpha:1.0f];
-    [self vhl_setNavBarTintColor:[UIColor whiteColor]];
+    //[self vhl_setNavBarTintColor:[UIColor whiteColor]];
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
     [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
     [self vhl_setStatusBarHidden:YES];

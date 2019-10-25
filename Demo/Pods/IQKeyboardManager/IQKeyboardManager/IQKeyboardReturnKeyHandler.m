@@ -125,17 +125,16 @@
     
     if (modal)
     {
-        if ([view isKindOfClass:[UITextField class]])
+        UITextField *textField = (UITextField*)view;
+
+        if ([view respondsToSelector:@selector(setReturnKeyType:)])
         {
-            UITextField *textField = (UITextField*)view;
             textField.returnKeyType = modal.originalReturnKeyType;
-            textField.delegate = modal.textFieldDelegate;
         }
-        else if ([view isKindOfClass:[UITextView class]])
+
+        if ([view respondsToSelector:@selector(setDelegate:)])
         {
-            UITextView *textView = (UITextView*)view;
-            textView.returnKeyType = modal.originalReturnKeyType;
-            textView.delegate = modal.textViewDelegate;
+            textField.delegate = modal.textFieldDelegate;
         }
         
         [textFieldInfoCache removeObject:modal];
@@ -146,19 +145,17 @@
 {
     IQTextFieldViewInfoModal *modal = [[IQTextFieldViewInfoModal alloc] initWithTextFieldView:view textFieldDelegate:nil textViewDelegate:nil originalReturnKey:UIReturnKeyDefault];
     
-    if ([view isKindOfClass:[UITextField class]])
+    UITextField *textField = (UITextField*)view;
+
+    if ([view respondsToSelector:@selector(setReturnKeyType:)])
     {
-        UITextField *textField = (UITextField*)view;
         modal.originalReturnKeyType = textField.returnKeyType;
+    }
+
+    if ([view respondsToSelector:@selector(setDelegate:)])
+    {
         modal.textFieldDelegate = textField.delegate;
         [textField setDelegate:self];
-    }
-    else if ([view isKindOfClass:[UITextView class]])
-    {
-        UITextView *textView = (UITextView*)view;
-        modal.originalReturnKeyType = textView.returnKeyType;
-        modal.textViewDelegate = textView.delegate;
-        [textView setDelegate:self];
     }
 
     [textFieldInfoCache addObject:modal];
@@ -345,14 +342,10 @@
         delegate = modal.textFieldDelegate;
     }
     
-#ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *)) {
-#endif
         if ([delegate respondsToSelector:@selector(textFieldDidEndEditing:reason:)])
             [delegate textFieldDidEndEditing:textField reason:reason];
-#ifdef __IPHONE_11_0
     }
-#endif
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -539,14 +532,10 @@
         delegate = modal.textViewDelegate;
     }
     
-#ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *)) {
-#endif
         if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)])
             return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:interaction];
-#ifdef __IPHONE_11_0
     }
-#endif
 
     return YES;
 }
@@ -561,18 +550,15 @@
         delegate = modal.textViewDelegate;
     }
     
-#ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *)) {
-#endif
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:interaction:)])
         return [delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange interaction:interaction];
-#ifdef __IPHONE_11_0
     }
-#endif
 
     return YES;
 }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 100000
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
     id<UITextViewDelegate> delegate = self.delegate;
@@ -583,11 +569,8 @@
         delegate = modal.textViewDelegate;
     }
     
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)])
         return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange];
-#pragma clang diagnostic pop
     else
         return YES;
 }
@@ -602,32 +585,27 @@
         delegate = modal.textViewDelegate;
     }
     
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:)])
         return [delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange];
-#pragma clang diagnostic pop
     else
         return YES;
 }
+#endif
 
 -(void)dealloc
 {
     for (IQTextFieldViewInfoModal *modal in textFieldInfoCache)
     {
-        UIView *textFieldView = modal.textFieldView;
-        if ([textFieldView isKindOfClass:[UITextField class]])
+        UITextField *textField = (UITextField*)modal.textFieldView;
+
+        if ([textField respondsToSelector:@selector(setReturnKeyType:)])
         {
-            UITextField *textField = (UITextField*)textFieldView;
             textField.returnKeyType = modal.originalReturnKeyType;
-            textField.delegate = modal.textFieldDelegate
-            ;
         }
-        else if ([textFieldView isKindOfClass:[UITextView class]])
+
+        if ([textField respondsToSelector:@selector(setDelegate:)])
         {
-            UITextView *textView = (UITextView*)textFieldView;
-            textView.returnKeyType = modal.originalReturnKeyType;
-            textView.delegate = modal.textViewDelegate;
+            textField.delegate = modal.textFieldDelegate;
         }
     }
 

@@ -3,6 +3,8 @@
 
 微信红包样式导航栏样式切换，颜色过渡切换，导航栏背景图片切换，导航栏透明度切换，有无导航栏切换
 
+Swift 版 [VHLNavigation](https://github.com/huanglins/VHLNavigation_Swift)
+
 ![微信样式](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/微信样式.gif)
 ![颜色过渡](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/颜色过渡.gif)
 ![背景图片](https://github.com/huanglins/VHLNavigation/raw/master/screenshots/背景图片.gif)
