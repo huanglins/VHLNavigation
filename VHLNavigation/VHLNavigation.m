@@ -130,6 +130,13 @@ static char kVHLDefaultIgnoreVCListKey;             // 全局忽略数组
     objc_setAssociatedObject(self, &kVHLDefaultIgnoreVCListKey, vcList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 + (BOOL)vhl_isIgnoreVC:(NSString *)vcName {
+    // 忽略系统类
+    NSArray *systemClassPrefixs = @[@"_UI", @"UI", @"SF", @"MFMail", @"PUPhoto", @"CKSMS"];
+    for (NSString *systemPrefix in systemClassPrefixs) {
+        if ([vcName hasPrefix:systemPrefix]) {
+            return true;
+        }
+    }
     return [[VHLNavigation defaultIgnoreVCList] containsObject:vcName];
 }
 /** 全局添加一个需要忽略的 ViewController */
@@ -255,7 +262,7 @@ static char kVHLBackgroundImageViewKey;
     UIView *barBackgroundView = self.subviews.firstObject;
     barBackgroundView.alpha = alpha;
     
-    if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
+    if (@available(iOS 11.0, *)) {  // iOS 11 下 UIBarBackground -> UIView/UIImageView
         for (UIView *view in self.subviews) {
             NSString *viewClassName = NSStringFromClass([view class]);
             if ([viewClassName containsString:@"UIbarBackGround"]) {        // iOS 13 下名字变为 UIBarBackground
@@ -279,6 +286,8 @@ static char kVHLBackgroundImageViewKey;
 /** 设置当前 NavigationBar 底部分割线是否隐藏*/
 - (void)vhl_setShadowImageHidden:(BOOL)hidden {
     self.shadowImage = hidden ? [UIImage new] : nil;
+    // iOS 11 后设置 shadowImage 无效
+    [self setValue:@(hidden) forKey:@"hidesShadow"];
 }
 /** 设置当前 NavigationBar _UINavigationBarBackIndicatorView (默认的返回箭头)是否隐藏*/
 - (void)vhl_setBarBackIndicatorViewHidden:(BOOL)hidden {
@@ -461,6 +470,7 @@ static int vhlPushDisplayCount = 0;
 // push
 - (void)pushNeedDisplay {
     if (self.topViewController && self.topViewController.transitionCoordinator != nil) {
+        if (self.topViewController.presentingViewController) { return; }
         vhlPushDisplayCount += 1;
         CGFloat pushProgress = [self vhlPushProgress];
         UIViewController *fromVC = [self.topViewController.transitionCoordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
