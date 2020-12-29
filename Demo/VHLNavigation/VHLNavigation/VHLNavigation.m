@@ -620,7 +620,7 @@ static int vhlPushDisplayCount = 0;
 }
 // -> 设置当前导航栏 shadowImageHidden
 - (void)setNeedsNavigationBarUpdateForShadowImageHidden:(BOOL)hidden {
-    self.navigationBar.shadowImage = hidden ? [UIImage new] : nil;
+    [self.navigationBar vhl_setShadowImageHidden:hidden];
 }
 #pragma mark - 状态栏 -----------------------------------------------------------
 - (UIStatusBarStyle)preferredStatusBarStyle {

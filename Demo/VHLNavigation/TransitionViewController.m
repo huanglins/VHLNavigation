@@ -33,9 +33,6 @@
     [self vhl_setNavBarBackgroundAlpha:1.0f];
     //[self vhl_setNavBarTintColor:[UIColor whiteColor]];
     [self vhl_setNavBarTitleColor:[UIColor whiteColor]];
-    [self vhl_setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self vhl_setStatusBarHidden:YES];
-    //[self vhl_setNavBarHidden:YES];
     
     //
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 60 + 64, 150, 30)];
@@ -118,7 +115,7 @@
 
 - (void)goTransition:(UIButton *)sender {
     TransitionViewController *vc2 = [[TransitionViewController alloc] init];
-    [vc2 vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
+    //[vc2 vhl_setNavBarBackgroundColor:[UIColor colorWithRed:(rand() % 100 * 0.01) green:(rand() % 100 * 0.01) blue:0.86 alpha:1.00]];
     vc2.modalPresentationCapturesStatusBarAppearance = YES;
     [self.navigationController pushViewController:vc2 animated:YES];
 }

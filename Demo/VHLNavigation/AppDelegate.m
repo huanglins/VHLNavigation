@@ -31,6 +31,7 @@
     self.window.rootViewController = tabbarC;
     [self.window makeKeyAndVisible];
     
+    [VHLNavigation vhl_setDefaultNavBackgroundColor:[UIColor redColor]];
     // 自定义
 //    [VHLNavigation vhl_addIgnoreVCClassName:@"NavBGViewController"];
     // 第三方库
